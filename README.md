@@ -1,2 +1,2 @@
 # Welcome to Bookster
-Project page: http://booksterteam.github.io/Bookster/
+We have a [Project Page](http://booksterteam.github.io/Bookster/).
