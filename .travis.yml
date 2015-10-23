@@ -2,9 +2,10 @@ language: java
 jdk:
   - oraclejdk8
 
-before_script:
+before_install:
   - npm install -g grunt-cli
   - npm install -g bower
   - npm install -g tsd
 
-script: ./gradlew test
+script:
+  - ./gradlew test
