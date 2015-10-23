@@ -1,11 +1,13 @@
 language: java
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 before_install:
-  - npm install -g grunt-cli
-  - npm install -g bower
-  - npm install -g tsd
-
+- npm install -g grunt-cli
+- npm install -g bower
+- npm install -g tsd
 script:
-  - ./gradlew test
+- "./gradlew test"
+notifications:
+  slack:
+    secure: NZMZAhZXBCnGThGM90lnYotQLo/GXDdorfAPxEAvPr09fWNgbETnAbK/Z4riJgn0VIy2ke7qFMzorjdVmI61x66f5ST/rJIDB2QbGrIjgJyTPfe+GoeVU9597FGcmozl9WC49TrAeviFLP5EuMEffRBouIdVbaEYfhw+E7akDTVWq+BXtmjJqV5TCXR6mVCqddHVuYdessLe4IH+lehepn8dRxYf+Q4Po1V7oDraeHD3cPSotIh69eqlL2xx9VtyTORlIzHp+HmZrH0R5+s6SCgEnm71AKtM3eooZ85mIczKBBqeepog7hOm+O13hdGkPnciPOGqF9ANdMdjQwan0/w/Xl7UE9cjWxnFwU69HtWFzm9Z8oRaMy6eOwjpR4atJ/E/ImwbFoWxcJs2yNnl3glWPthyQVy2+ghVCBDoLTzztXo6I4BlFZVVEP8gyh2tWilc370RkEnUAyn0RC2D+02PPZfVqw1pa/MDqf2XlS6lIj+R+sD9GEwptmr8uvXy6STgf6HMEzuN4yWAH9XRX+JU/hAfo4nNkijKfPy9xGN+8LUJzzETjD+W/Dl7c41ABNHlpo/wmU1G5WrC9IpYe89oLdImQRI7jrC2NZw1siep7/wY/nEiAvtP/7oFu8pNkJhCfVxNxaRwLfZpyVtm9Yvq4H2hsixIVIXxI9t1KiM=
+l
