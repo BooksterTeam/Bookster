@@ -146,8 +146,8 @@ module.exports = function (grunt) {
         },
         usemin: {
             html: ['<%= yeoman.dist %>/**/*.html'],
-            css: ['<%= yeoman.dist %>/assets/styles/**/*.css'],
-            js: ['<%= yeoman.dist %>/scripts/**/*.js'],
+            css: ['<%= yeoman.dist %>/assets/styles/**/*.css', '<%= yeoman.dist %>/assets/base/**/*.css'],
+            js: ['<%= yeoman.dist %>/scripts/**/*.js', '<%= yeoman.dist %>/assets/base/**/*.js'],
             options: {
                 assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/assets/styles', '<%= yeoman.dist %>/assets/images', '<%= yeoman.dist %>/assets/fonts'],
                 patterns: {
