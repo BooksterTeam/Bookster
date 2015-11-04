@@ -1,8 +1,11 @@
 package io.github.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.github.bookster.domain.Book;
 import io.github.bookster.domain.Copy;
+import io.github.bookster.repository.BookRepository;
 import io.github.bookster.repository.CopyRepository;
+import io.github.bookster.web.model.CopyModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -33,6 +36,9 @@ public class CopyResource {
     @Inject
     private CopyRepository copyRepository;
 
+    @Inject
+    private BookRepository bookRepository;
+
     /**
      * POST  /copys -> Create a new copy.
      */
@@ -40,11 +46,19 @@ public class CopyResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Copy> createCopy(@RequestBody Copy copy) throws URISyntaxException {
-        log.debug("REST request to save Copy : {}", copy);
-        if (copy.getId() != null) {
+    public ResponseEntity<Copy> createCopy(@RequestBody CopyModel copyModel) throws URISyntaxException {
+        log.debug("REST request to save Copy : {}", copyModel);
+        if (copyModel.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new copy cannot already have an ID").body(null);
         }
+
+        Copy copy = new Copy(copyModel.getAvailable(), copyModel.getVerified());
+        //todo https://github.com/BooksterTeam/Bookster/issues/8
+        if(copyModel.getBook() != null){
+            Book book = bookRepository.findOne(copyModel.getBook());
+            copy.setBook(book);
+        }
+
         Copy result = copyRepository.save(copy);
         return ResponseEntity.created(new URI("/api/copys/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("copy", result.getId().toString()))
@@ -58,11 +72,19 @@ public class CopyResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Copy> updateCopy(@RequestBody Copy copy) throws URISyntaxException {
-        log.debug("REST request to update Copy : {}", copy);
-        if (copy.getId() == null) {
-            return createCopy(copy);
+    public ResponseEntity<Copy> updateCopy(@RequestBody CopyModel copyModel) throws URISyntaxException {
+        log.debug("REST request to update Copy : {}", copyModel);
+        if (copyModel.getId() == null) {
+            return createCopy(copyModel);
         }
+
+        Copy copy = new Copy(copyModel.getId(), copyModel.getAvailable(), copyModel.getVerified());
+        //todo https://github.com/BooksterTeam/Bookster/issues/8
+        if(copyModel.getBook() != null){
+            Book book = bookRepository.findOne(copyModel.getBook());
+            copy.setBook(book);
+        }
+
         Copy result = copyRepository.save(copy);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("copy", copy.getId().toString()))

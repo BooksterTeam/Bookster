@@ -1,9 +1,4 @@
-package io.github.bookster.domain;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+package io.github.bookster.web.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,31 +7,20 @@ import java.util.Objects;
  * A Copy.
  */
 
-@Document(collection = "copy")
-public class Copy implements Serializable {
+public class CopyModel implements Serializable{
 
-    @Id
     private String id;
 
-    @Field("verified")
     private Boolean verified;
 
-    @Field("available")
     private Boolean available;
 
-    @DBRef
-    private Book book;
+    private String book;
 
-    public Copy() {
+    public CopyModel() {
     }
 
-    public Copy(Boolean available, Boolean verified) {
-        this.available = available;
-        this.verified = verified;
-    }
-
-    public Copy(String id, Boolean available, Boolean verified) {
-        this.id = id;
+    public CopyModel(Boolean available, Boolean verified) {
         this.available = available;
         this.verified = verified;
     }
@@ -65,11 +49,11 @@ public class Copy implements Serializable {
         this.available = available;
     }
 
-    public Book getBook() {
+    public String getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(String book) {
         this.book = book;
     }
 
@@ -82,7 +66,7 @@ public class Copy implements Serializable {
             return false;
         }
 
-        Copy copy = (Copy) o;
+        CopyModel copy = (CopyModel) o;
 
         if ( ! Objects.equals(id, copy.id)) return false;
 
@@ -100,6 +84,6 @@ public class Copy implements Serializable {
             "id=" + id +
             ", verified='" + verified + "'" +
             ", available='" + available + "'" +
-            '}';
+            ", book ='" + book+'}';
     }
 }

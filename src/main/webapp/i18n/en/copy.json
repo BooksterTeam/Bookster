@@ -16,7 +16,8 @@
                 "title": "Copy"
             },
             "verified": "Verified",
-            "available": "Available"
+            "available": "Available",
+            "book": "Book"
         }
     }
 }

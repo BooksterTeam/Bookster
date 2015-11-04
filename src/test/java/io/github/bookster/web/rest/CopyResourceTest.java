@@ -4,6 +4,7 @@ import io.github.bookster.Application;
 import io.github.bookster.domain.Copy;
 import io.github.bookster.repository.CopyRepository;
 
+import io.github.bookster.web.model.CopyModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,6 +61,8 @@ public class CopyResourceTest {
 
     private Copy copy;
 
+    private CopyModel copyModel;
+
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -76,6 +79,7 @@ public class CopyResourceTest {
         copy = new Copy();
         copy.setVerified(DEFAULT_VERIFIED);
         copy.setAvailable(DEFAULT_AVAILABLE);
+        copyModel = new CopyModel(DEFAULT_AVAILABLE, DEFAULT_VERIFIED);
     }
 
     @Test
@@ -86,7 +90,7 @@ public class CopyResourceTest {
 
         restCopyMockMvc.perform(post("/api/copys")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(copy)))
+                .content(TestUtil.convertObjectToJsonBytes(copyModel)))
                 .andExpect(status().isCreated());
 
         // Validate the Copy in the database
@@ -101,7 +105,6 @@ public class CopyResourceTest {
     public void getAllCopys() throws Exception {
         // Initialize the database
         copyRepository.save(copy);
-
         // Get all the copys
         restCopyMockMvc.perform(get("/api/copys"))
                 .andExpect(status().isOk())
@@ -115,12 +118,12 @@ public class CopyResourceTest {
     public void getCopy() throws Exception {
         // Initialize the database
         copyRepository.save(copy);
-
+        copyModel.setId(copy.getId());
         // Get the copy
-        restCopyMockMvc.perform(get("/api/copys/{id}", copy.getId()))
+        restCopyMockMvc.perform(get("/api/copys/{id}", copyModel.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.id").value(copy.getId()))
+            .andExpect(jsonPath("$.id").value(copyModel.getId()))
             .andExpect(jsonPath("$.verified").value(DEFAULT_VERIFIED.booleanValue()))
             .andExpect(jsonPath("$.available").value(DEFAULT_AVAILABLE.booleanValue()));
     }
@@ -138,14 +141,14 @@ public class CopyResourceTest {
         copyRepository.save(copy);
 
 		int databaseSizeBeforeUpdate = copyRepository.findAll().size();
-
+        copyModel.setId(copy.getId());
         // Update the copy
-        copy.setVerified(UPDATED_VERIFIED);
-        copy.setAvailable(UPDATED_AVAILABLE);
+        copyModel.setVerified(UPDATED_VERIFIED);
+        copyModel.setAvailable(UPDATED_AVAILABLE);
 
         restCopyMockMvc.perform(put("/api/copys")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(copy)))
+                .content(TestUtil.convertObjectToJsonBytes(copyModel)))
                 .andExpect(status().isOk());
 
         // Validate the Copy in the database

@@ -43,6 +43,7 @@
                     <th translate="global.field.id">ID</th>
                     <th translate="booksterApp.copy.verified">Verified</th>
                     <th translate="booksterApp.copy.available">Available</th>
+                    <th translate="booksterApp.copy.book">Book</th>
                     <th></th>
                 </tr>
             </thead>
@@ -51,6 +52,7 @@
                     <td><a ui-sref="copy.detail({id:copy.id})">{{copy.id}}</a></td>
                     <td>{{copy.verified}}</td>
                     <td>{{copy.available}}</td>
+                    <td>{{copy.book}}</td>
                     <td>
                         <button type="submit"
                                 ui-sref="copy.detail({id:copy.id})"
