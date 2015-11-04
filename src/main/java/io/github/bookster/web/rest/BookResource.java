@@ -2,7 +2,10 @@ package io.github.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.github.bookster.domain.Book;
+import io.github.bookster.domain.Tag;
 import io.github.bookster.repository.BookRepository;
+import io.github.bookster.repository.TagRepository;
+import io.github.bookster.web.model.BookModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +37,9 @@ public class BookResource {
     @Inject
     private BookRepository bookRepository;
 
+    @Inject
+    private TagRepository tagRepository;
+
     /**
      * POST  /books -> Create a new book.
      */
@@ -40,11 +47,15 @@ public class BookResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Book> createBook(@RequestBody Book book) throws URISyntaxException {
-        log.debug("REST request to save Book : {}", book);
-        if (book.getId() != null) {
+    public ResponseEntity<Book> createBook(@RequestBody BookModel bookModel) throws URISyntaxException {
+        log.debug("REST request to save Book : {}", bookModel);
+        if (bookModel.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new book cannot already have an ID").body(null);
         }
+        Book book = new Book(null, bookModel.getIsbn(), bookModel.getTitle(), bookModel.getVerified(), bookModel.getPublished(), bookModel.getSubtitle());
+        String tagid = bookModel.getTag();
+        Tag tag =  tagRepository.findOne(tagid);
+        book.getTags().add(tag);
         Book result = bookRepository.save(book);
         return ResponseEntity.created(new URI("/api/books/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("book", result.getId().toString()))
@@ -58,14 +69,17 @@ public class BookResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Book> updateBook(@RequestBody Book book) throws URISyntaxException {
-        log.debug("REST request to update Book : {}", book);
-        if (book.getId() == null) {
-            return createBook(book);
+    public ResponseEntity<Book> updateBook(@RequestBody BookModel model) throws URISyntaxException {
+        log.debug("REST request to update Book : {}", model);
+        if (model.getId() == null) {
+            return createBook(model);
         }
-        Book result = bookRepository.save(book);
+        Book result = new Book();
+        result.setIsbn(model.getIsbn());
+        result.setTitle(model.getTitle());
+        bookRepository.save(result);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("book", book.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("book", model.getId().toString()))
             .body(result);
     }
 

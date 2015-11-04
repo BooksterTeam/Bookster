@@ -1,12 +1,14 @@
 package io.github.bookster.domain;
 
-import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Book.
@@ -28,10 +30,25 @@ public class Book implements Serializable {
     private Boolean verified;
 
     @Field("published")
-    private LocalDate published;
+    private String published;
 
     @Field("subtitle")
     private String subtitle;
+
+    @DBRef
+    private Set<Tag> tags = new HashSet<>();
+
+    public Book() {
+    }
+
+    public Book(String id, String isbn, String title, Boolean verified, String published, String subtitle) {
+        this.id = id;
+        this.isbn = isbn;
+        this.published = published;
+        this.subtitle = subtitle;
+        this.title = title;
+        this.verified = verified;
+    }
 
     public String getId() {
         return id;
@@ -65,11 +82,11 @@ public class Book implements Serializable {
         this.verified = verified;
     }
 
-    public LocalDate getPublished() {
+    public String getPublished() {
         return published;
     }
 
-    public void setPublished(LocalDate published) {
+    public void setPublished(String published) {
         this.published = published;
     }
 
@@ -79,6 +96,14 @@ public class Book implements Serializable {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override
@@ -92,7 +117,7 @@ public class Book implements Serializable {
 
         Book book = (Book) o;
 
-        if ( ! Objects.equals(id, book.id)) return false;
+        if (!Objects.equals(id, book.id)) return false;
 
         return true;
     }
@@ -105,12 +130,13 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         return "Book{" +
-            "id=" + id +
-            ", isbn='" + isbn + "'" +
-            ", title='" + title + "'" +
-            ", verified='" + verified + "'" +
-            ", published='" + published + "'" +
-            ", subtitle='" + subtitle + "'" +
-            '}';
+                "id=" + id +
+                ", isbn='" + isbn + "'" +
+                ", title='" + title + "'" +
+                ", verified='" + verified + "'" +
+                ", published='" + published + "'" +
+                ", subtitle='" + subtitle + "'" +
+                ", tags='" + tags.size() + "'" +
+                '}';
     }
 }

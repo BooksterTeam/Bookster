@@ -19,7 +19,8 @@
             "title": "Title",
             "verified": "Verified",
             "published": "Published",
-            "subtitle": "Subtitle"
+            "subtitle": "Subtitle",
+            "tag": "Tag"
         }
     }
 }
