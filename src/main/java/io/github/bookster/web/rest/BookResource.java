@@ -53,9 +53,10 @@ public class BookResource {
             return ResponseEntity.badRequest().header("Failure", "A new book cannot already have an ID").body(null);
         }
         Book book = new Book(null, bookModel.getIsbn(), bookModel.getTitle(), bookModel.getVerified(), bookModel.getPublished(), bookModel.getSubtitle());
-        String tagid = bookModel.getTag();
-        Tag tag =  tagRepository.findOne(tagid);
-        book.getTags().add(tag);
+        if (bookModel.getTag() != null) {
+            Tag tag =  tagRepository.findOne(bookModel.getTag());
+            book.getTags().add(tag);
+        }
         Book result = bookRepository.save(book);
         return ResponseEntity.created(new URI("/api/books/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("book", result.getId().toString()))
@@ -65,6 +66,7 @@ public class BookResource {
     /**
      * PUT  /books -> Updates an existing book.
      */
+    //Todo https://github.com/BooksterTeam/Bookster/issues/4
     @RequestMapping(value = "/books",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -74,10 +76,13 @@ public class BookResource {
         if (model.getId() == null) {
             return createBook(model);
         }
-        Book result = new Book();
-        result.setIsbn(model.getIsbn());
-        result.setTitle(model.getTitle());
-        bookRepository.save(result);
+        Book book = bookRepository.findOne(model.getId());
+        book.setIsbn(model.getIsbn());
+        book.setTitle(model.getTitle());
+        book.setPublished(model.getPublished());
+        book.setVerified(model.getVerified());
+        book.setSubtitle(model.getSubtitle());
+        Book result = bookRepository.save(book);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("book", model.getId().toString()))
             .body(result);
