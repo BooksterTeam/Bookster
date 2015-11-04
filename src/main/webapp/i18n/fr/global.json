@@ -9,6 +9,7 @@
                 "tag": "Tag",
                 "book": "Book",
                 "author": "Author",
+                "copy": "Copy",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
