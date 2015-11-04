@@ -52,7 +52,7 @@
                     <td><a ui-sref="author.detail({id:author.id})">{{author.id}}</a></td>
                     <td>{{author.forename}}</td>
                     <td>{{author.surname}}</td>
-                    <td>{{author.book}}</td>
+                    <td><div ng-repeat="b in author.books">{{b.title}}</div></td>
                     <td>
                         <button type="submit"
                                 ui-sref="author.detail({id:author.id})"

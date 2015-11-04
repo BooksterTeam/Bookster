@@ -31,7 +31,7 @@
                     <span translate="booksterApp.author.book">Book</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{author.book}}</span>
+                    <span class="form-control-static"><div ng-repeat="b in author.books">{{b.title}}</div></span>
                 </td>
             </tr>
             </tbody>

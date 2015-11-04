@@ -1,43 +1,23 @@
-package io.github.bookster.domain;
+package io.github.bookster.web.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Objects;
 
 /**
  * A Author.
  */
 
-@Document(collection = "author")
-public class Author implements Serializable {
+public class AuthorModel {
 
-    @Id
     private String id;
 
-    @Field("forename")
     private String forename;
 
-    @Field("surname")
     private String surname;
 
-    @DBRef
-    private HashSet<Book> books = new HashSet<>();
+    private String book;
 
-    public Author() {
+    public AuthorModel() {
     }
-
-    public Author(String forename, String surname, Book book) {
-        this.forename = forename;
-        this.surname = surname;
-        books.add(book);
-    }
-
 
     public String getId() {
         return id;
@@ -63,12 +43,12 @@ public class Author implements Serializable {
         this.surname = surname;
     }
 
-    public HashSet<Book> getBooks() {
-        return books;
+    public String getBook() {
+        return book;
     }
 
-    public void setBooks(HashSet<Book> books) {
-        this.books = books;
+    public void setBook(String book) {
+        this.book = book;
     }
 
     @Override
@@ -80,7 +60,7 @@ public class Author implements Serializable {
             return false;
         }
 
-        Author author = (Author) o;
+        AuthorModel author = (AuthorModel) o;
 
         if ( ! Objects.equals(id, author.id)) return false;
 
@@ -98,6 +78,6 @@ public class Author implements Serializable {
             "id=" + id +
             ", forename='" + forename + "'" +
             ", surname='" + surname + "'" +
-            ", books='" + Arrays.toString(books.toArray())+'}';
+            ", book='" + book+ '}';
     }
 }

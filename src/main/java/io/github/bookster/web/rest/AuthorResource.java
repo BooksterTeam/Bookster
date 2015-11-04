@@ -2,7 +2,10 @@ package io.github.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.github.bookster.domain.Author;
+import io.github.bookster.domain.Book;
 import io.github.bookster.repository.AuthorRepository;
+import io.github.bookster.repository.BookRepository;
+import io.github.bookster.web.model.AuthorModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -33,6 +36,9 @@ public class AuthorResource {
     @Inject
     private AuthorRepository authorRepository;
 
+    @Inject
+    private BookRepository bookRepository;
+
     /**
      * POST  /authors -> Create a new author.
      */
@@ -40,11 +46,14 @@ public class AuthorResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Author> createAuthor(@RequestBody Author author) throws URISyntaxException {
-        log.debug("REST request to save Author : {}", author);
-        if (author.getId() != null) {
+    public ResponseEntity<Author> createAuthor(@RequestBody AuthorModel authorModel) throws URISyntaxException {
+        log.debug("REST request to save Author : {}", authorModel);
+        if (authorModel.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new author cannot already have an ID").body(null);
         }
+        Book book = bookRepository.findOne(authorModel.getBook());
+        Author author = new Author(authorModel.getForename(), authorModel.getSurname(), book);
+
         Author result = authorRepository.save(author);
         return ResponseEntity.created(new URI("/api/authors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("author", result.getId().toString()))
@@ -58,11 +67,14 @@ public class AuthorResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Author> updateAuthor(@RequestBody Author author) throws URISyntaxException {
-        log.debug("REST request to update Author : {}", author);
-        if (author.getId() == null) {
-            return createAuthor(author);
+    public ResponseEntity<Author> updateAuthor(@RequestBody AuthorModel authorModel) throws URISyntaxException {
+        log.debug("REST request to update Author : {}", authorModel);
+        if (authorModel.getId() == null) {
+            return createAuthor(authorModel);
         }
+        Book book = bookRepository.findOne(authorModel.getBook());
+        Author author = new Author(authorModel.getForename(), authorModel.getSurname(), book);
+
         Author result = authorRepository.save(author);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("author", author.getId().toString()))
@@ -92,6 +104,7 @@ public class AuthorResource {
     @Timed
     public ResponseEntity<Author> getAuthor(@PathVariable String id) {
         log.debug("REST request to get Author : {}", id);
+        log.debug(authorRepository.findOne(id).toString());
         return Optional.ofNullable(authorRepository.findOne(id))
             .map(author -> new ResponseEntity<>(
                 author,
