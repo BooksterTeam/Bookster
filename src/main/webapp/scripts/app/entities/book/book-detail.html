@@ -1,0 +1,62 @@
+
+<div>
+    <h2><span translate="booksterApp.book.detail.title">Book</span> {{book.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="booksterApp.book.isbn">Isbn</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{book.isbn}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="booksterApp.book.title">Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{book.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="booksterApp.book.verified">Verified</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{book.verified}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="booksterApp.book.published">Published</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{book.published | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="booksterApp.book.subtitle">Subtitle</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{book.subtitle}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

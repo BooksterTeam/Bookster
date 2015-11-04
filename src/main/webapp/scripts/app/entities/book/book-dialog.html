@@ -1,0 +1,56 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myBookLabel" translate="booksterApp.book.home.createOrEditLabel">Create or edit a Book</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="book.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="booksterApp.book.isbn" for="field_isbn">Isbn</label>
+            <input type="text" class="form-control" name="isbn" id="field_isbn"
+                    ng-model="book.isbn"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="booksterApp.book.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="book.title"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="booksterApp.book.verified" for="field_verified">Verified</label>
+            <input type="checkbox" class="form-control" name="verified" id="field_verified"
+                    ng-model="book.verified"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="booksterApp.book.published" for="field_published">Published</label>
+            <input type="date" class="form-control" name="published" id="field_published"
+                    ng-model="book.published"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="booksterApp.book.subtitle" for="field_subtitle">Subtitle</label>
+            <input type="text" class="form-control" name="subtitle" id="field_subtitle"
+                    ng-model="book.subtitle"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
