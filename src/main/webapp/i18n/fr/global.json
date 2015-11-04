@@ -8,6 +8,7 @@
                 "main": "Entités",
                 "tag": "Tag",
                 "book": "Book",
+                "author": "Author",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
