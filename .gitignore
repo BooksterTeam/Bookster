@@ -121,3 +121,7 @@ Desktop.ini
 # Gradle Wrapper
 ######################
 !gradle/wrapper/gradle-wrapper.jar
+
+
+# MongoConfiguration
+src/test/java/io/github/bookster/config/MongoConfiguration.java
