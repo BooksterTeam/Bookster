@@ -63,6 +63,7 @@ angular.module('booksterApp')
                                 return {
                                     forename: null,
                                     surname: null,
+                                    book:null,
                                     id: null
                                 };
                             }
