@@ -20,7 +20,8 @@
             "verified": "Verified",
             "published": "Published",
             "subtitle": "Subtitle",
-            "tag": "Tag"
+            "tag": "Tag",
+            "tags": "Tags"
         }
     }
 }

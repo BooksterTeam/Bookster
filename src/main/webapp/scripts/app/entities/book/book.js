@@ -67,7 +67,8 @@ angular.module('booksterApp')
                                     published: null,
                                     subtitle: null,
                                     id: null,
-                                    tag:null
+                                    tag:null,
+                                    tags:[]
                                 };
                             }
                         }

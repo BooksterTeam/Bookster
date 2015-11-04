@@ -46,6 +46,7 @@
                     <th translate="booksterApp.book.verified">Verified</th>
                     <th translate="booksterApp.book.published">Published</th>
                     <th translate="booksterApp.book.subtitle">Subtitle</th>
+                    <th translate="booksterApp.book.tags"></th>
                     <th></th>
                 </tr>
             </thead>
@@ -57,6 +58,7 @@
                     <td>{{book.verified}}</td>
                         <td>{{book.published | date:'mediumDate'}}</td>
                     <td>{{book.subtitle}}</td>
+                    <td><div ng-repeat="b in book.tags">{{b.name}}</div></td>
                     <td>
                         <button type="submit"
                                 ui-sref="book.detail({id:book.id})"

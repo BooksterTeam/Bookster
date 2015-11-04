@@ -50,6 +50,14 @@
                     <span class="form-control-static">{{book.subtitle}}</span>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span translate="booksterApp.book.tags">tags</span>
+                </td>
+                <td>
+                    <span class="form-control-static"><div ng-repeat="b in book.tags">{{b.name}}</div></span>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
