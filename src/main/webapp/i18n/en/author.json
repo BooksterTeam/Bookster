@@ -16,7 +16,8 @@
                 "title": "Author"
             },
             "forename": "Forename",
-            "surname": "Surname"
+            "surname": "Surname",
+            "book": "Book"
         }
     }
 }
