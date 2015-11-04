@@ -51,8 +51,13 @@ public class AuthorResource {
         if (authorModel.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new author cannot already have an ID").body(null);
         }
-        Book book = bookRepository.findOne(authorModel.getBook());
-        Author author = new Author(authorModel.getForename(), authorModel.getSurname(), book);
+
+        Author author = new Author(authorModel.getForename(), authorModel.getSurname());
+
+        if (authorModel.getBook() != null && !authorModel.getBook().isEmpty()) {
+            Book book = bookRepository.findOne(authorModel.getBook());
+            author.getBooks().add(book);
+        }
 
         Author result = authorRepository.save(author);
         return ResponseEntity.created(new URI("/api/authors/" + result.getId()))
@@ -72,8 +77,12 @@ public class AuthorResource {
         if (authorModel.getId() == null) {
             return createAuthor(authorModel);
         }
-        Book book = bookRepository.findOne(authorModel.getBook());
-        Author author = new Author(authorModel.getForename(), authorModel.getSurname(), book);
+        Author author = new Author(authorModel.getId(), authorModel.getForename(), authorModel.getSurname());
+
+        if (authorModel.getBook()!= null && !authorModel.getBook().isEmpty()) {
+            Book book = Optional.ofNullable(bookRepository.findOne(authorModel.getId())).orElse(null);
+            author.getBooks().add(book);
+        }
 
         Author result = authorRepository.save(author);
         return ResponseEntity.ok()
@@ -104,7 +113,6 @@ public class AuthorResource {
     @Timed
     public ResponseEntity<Author> getAuthor(@PathVariable String id) {
         log.debug("REST request to get Author : {}", id);
-        log.debug(authorRepository.findOne(id).toString());
         return Optional.ofNullable(authorRepository.findOne(id))
             .map(author -> new ResponseEntity<>(
                 author,

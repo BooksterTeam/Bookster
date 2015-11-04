@@ -32,12 +32,16 @@ public class Author implements Serializable {
     public Author() {
     }
 
-    public Author(String forename, String surname, Book book) {
+    public Author(String forename, String surname) {
         this.forename = forename;
         this.surname = surname;
-        books.add(book);
     }
 
+    public Author(String id, String forename, String surname) {
+        this.id = id;
+        this.forename = forename;
+        this.surname = surname;
+    }
 
     public String getId() {
         return id;

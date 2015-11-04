@@ -4,6 +4,7 @@ import io.github.bookster.Application;
 import io.github.bookster.domain.Author;
 import io.github.bookster.repository.AuthorRepository;
 
+import io.github.bookster.web.model.AuthorModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,8 @@ public class AuthorResourceTest {
 
     private Author author;
 
+    private AuthorModel authorModel;
+
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -74,6 +77,10 @@ public class AuthorResourceTest {
         author = new Author();
         author.setForename(DEFAULT_FORENAME);
         author.setSurname(DEFAULT_SURNAME);
+
+        authorModel = new AuthorModel();
+        authorModel.setForename(DEFAULT_FORENAME);
+        authorModel.setSurname(DEFAULT_SURNAME);
     }
 
     @Test
@@ -84,7 +91,7 @@ public class AuthorResourceTest {
 
         restAuthorMockMvc.perform(post("/api/authors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(author)))
+                .content(TestUtil.convertObjectToJsonBytes(authorModel)))
                 .andExpect(status().isCreated());
 
         // Validate the Author in the database
@@ -134,16 +141,16 @@ public class AuthorResourceTest {
     public void updateAuthor() throws Exception {
         // Initialize the database
         authorRepository.save(author);
+        authorModel.setId(author.getId());
 
 		int databaseSizeBeforeUpdate = authorRepository.findAll().size();
-
         // Update the author
-        author.setForename(UPDATED_FORENAME);
-        author.setSurname(UPDATED_SURNAME);
+        authorModel.setForename(UPDATED_FORENAME);
+        authorModel.setSurname(UPDATED_SURNAME);
 
         restAuthorMockMvc.perform(put("/api/authors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(author)))
+                .content(TestUtil.convertObjectToJsonBytes(authorModel)))
                 .andExpect(status().isOk());
 
         // Validate the Author in the database
