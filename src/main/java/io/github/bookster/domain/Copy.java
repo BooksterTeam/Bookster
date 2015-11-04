@@ -1,6 +1,7 @@
 package io.github.bookster.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -22,6 +23,22 @@ public class Copy implements Serializable {
 
     @Field("available")
     private Boolean available;
+
+    @DBRef
+    private Book book;
+
+    public Copy(Boolean available, Boolean verified, Book book) {
+        this.available = available;
+        this.verified = verified;
+        this.book = book;
+    }
+
+    public Copy(String id, Boolean available, Boolean verified, Book book) {
+        this.id = id;
+        this.available = available;
+        this.verified = verified;
+        this.book = book;
+    }
 
     public String getId() {
         return id;
@@ -45,6 +62,14 @@ public class Copy implements Serializable {
 
     public void setAvailable(Boolean available) {
         this.available = available;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     @Override
