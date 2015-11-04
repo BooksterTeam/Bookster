@@ -85,7 +85,7 @@ public class BookResourceTest {
         book.setIsbn(DEFAULT_ISBN);
         book.setTitle(DEFAULT_TITLE);
         book.setVerified(DEFAULT_VERIFIED);
-        book.setPublished(DEFAULT_PUBLISHED);
+        //book.setPublished(DEFAULT_PUBLISHED);
         book.setSubtitle(DEFAULT_SUBTITLE);
     }
 
@@ -163,7 +163,7 @@ public class BookResourceTest {
         book.setIsbn(UPDATED_ISBN);
         book.setTitle(UPDATED_TITLE);
         book.setVerified(UPDATED_VERIFIED);
-        book.setPublished(UPDATED_PUBLISHED);
+        //book.setPublished(UPDATED_PUBLISHED);
         book.setSubtitle(UPDATED_SUBTITLE);
 
         restBookMockMvc.perform(put("/api/books")
