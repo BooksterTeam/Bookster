@@ -43,6 +43,7 @@
                     <th translate="global.field.id">ID</th>
                     <th translate="booksterApp.author.forename">Forename</th>
                     <th translate="booksterApp.author.surname">Surname</th>
+                    <th translate="booksterApp.author.book">Book</th>
                     <th></th>
                 </tr>
             </thead>
@@ -51,6 +52,7 @@
                     <td><a ui-sref="author.detail({id:author.id})">{{author.id}}</a></td>
                     <td>{{author.forename}}</td>
                     <td>{{author.surname}}</td>
+                    <td>{{author.book}}</td>
                     <td>
                         <button type="submit"
                                 ui-sref="author.detail({id:author.id})"
