@@ -36,8 +36,6 @@ bootRun {
 apply from: 'yeoman.gradle'
 apply from: 'sonar.gradle'
 
-apply from: 'gatling.gradle'
-
 apply from: 'mapstruct.gradle'
 
 if (project.hasProperty('prod')) {
@@ -95,7 +93,7 @@ dependencies {
     compile (group: 'com.ryantenney.metrics', name: 'metrics-spring', version: metrics_spring_version) {
         exclude(module: 'metrics-core')
         exclude(module: 'metrics-healthchecks')
-    } 
+    }
     compile(group: 'com.zaxxer', name: 'HikariCP', version: HikariCP_version) {
         exclude(module: 'tools')
     }
@@ -127,12 +125,12 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-config', version: spring_security_version
     compile group: 'org.springframework.security', name: 'spring-security-data', version: spring_security_version
     compile group: 'org.springframework.security', name: 'spring-security-web', version: spring_security_version
-    compile group: 'org.springframework.security', name: 'spring-security-messaging', version: spring_security_version 
+    compile group: 'org.springframework.security', name: 'spring-security-messaging', version: spring_security_version
     compile group: 'org.mongeez', name: 'mongeez', version: mongeez_version
     compile(group: 'io.springfox', name: 'springfox-swagger2', version: springfox_version){
         exclude module: 'mapstruct'
     }
-    
+
     compile group: 'fr.ippon.spark.metrics', name: 'metrics-spark-reporter', version: metrics_spark_reporter_version
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
@@ -144,8 +142,7 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core'
     testCompile group: 'cz.jirutka.spring', name: 'embedmongo-spring', version: embedmongo_spring_version
     testCompile group: 'org.hamcrest', name: 'hamcrest-library'
-    testCompile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: gatling_version
-    
+
     testCompile group: 'com.h2database', name: 'h2'
     optional group: 'org.springframework.boot', name:'spring-boot-configuration-processor', version: spring_boot_version
 
