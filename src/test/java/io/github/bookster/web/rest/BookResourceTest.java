@@ -4,6 +4,7 @@ import io.github.bookster.Application;
 import io.github.bookster.domain.Book;
 import io.github.bookster.repository.BookRepository;
 
+import io.github.bookster.web.model.BookModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,6 +67,7 @@ public class BookResourceTest {
 
     private MockMvc restBookMockMvc;
 
+    private BookModel bookModel;
     private Book book;
 
     @PostConstruct
@@ -81,6 +83,13 @@ public class BookResourceTest {
     @Before
     public void initTest() {
         bookRepository.deleteAll();
+        bookModel = new BookModel();
+        bookModel.setIsbn(DEFAULT_ISBN);
+        bookModel.setTitle(DEFAULT_TITLE);
+        bookModel.setVerified(DEFAULT_VERIFIED);
+        //bookModel.setPublished(DEFAULT_PUBLISHED);
+        bookModel.setSubtitle(DEFAULT_SUBTITLE);
+
         book = new Book();
         book.setIsbn(DEFAULT_ISBN);
         book.setTitle(DEFAULT_TITLE);
@@ -95,9 +104,11 @@ public class BookResourceTest {
 
         // Create the Book
 
+
+
         restBookMockMvc.perform(post("/api/books")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(book)))
+                .content(TestUtil.convertObjectToJsonBytes(bookModel)))
                 .andExpect(status().isCreated());
 
         // Validate the Book in the database
@@ -120,7 +131,7 @@ public class BookResourceTest {
         restBookMockMvc.perform(get("/api/books"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(book.getId())))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(bookModel.getId())))
                 .andExpect(jsonPath("$.[*].isbn").value(hasItem(DEFAULT_ISBN.toString())))
                 .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
                 .andExpect(jsonPath("$.[*].verified").value(hasItem(DEFAULT_VERIFIED.booleanValue())))
@@ -133,11 +144,11 @@ public class BookResourceTest {
         // Initialize the database
         bookRepository.save(book);
 
-        // Get the book
-        restBookMockMvc.perform(get("/api/books/{id}", book.getId()))
+        // Get the bookModel
+        restBookMockMvc.perform(get("/api/books/{id}", bookModel.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.id").value(book.getId()))
+            .andExpect(jsonPath("$.id").value(bookModel.getId()))
             .andExpect(jsonPath("$.isbn").value(DEFAULT_ISBN.toString()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.verified").value(DEFAULT_VERIFIED.booleanValue()))
@@ -147,7 +158,7 @@ public class BookResourceTest {
 
     @Test
     public void getNonExistingBook() throws Exception {
-        // Get the book
+        // Get the bookModel
         restBookMockMvc.perform(get("/api/books/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
@@ -159,16 +170,16 @@ public class BookResourceTest {
 
 		int databaseSizeBeforeUpdate = bookRepository.findAll().size();
 
-        // Update the book
-        book.setIsbn(UPDATED_ISBN);
-        book.setTitle(UPDATED_TITLE);
-        book.setVerified(UPDATED_VERIFIED);
-        //book.setPublished(UPDATED_PUBLISHED);
-        book.setSubtitle(UPDATED_SUBTITLE);
+        // Update the bookModel
+        bookModel.setIsbn(UPDATED_ISBN);
+        bookModel.setTitle(UPDATED_TITLE);
+        bookModel.setVerified(UPDATED_VERIFIED);
+        //bookModel.setPublished(UPDATED_PUBLISHED);
+        bookModel.setSubtitle(UPDATED_SUBTITLE);
 
         restBookMockMvc.perform(put("/api/books")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(book)))
+                .content(TestUtil.convertObjectToJsonBytes(bookModel)))
                 .andExpect(status().isOk());
 
         // Validate the Book in the database
@@ -189,7 +200,7 @@ public class BookResourceTest {
 
 		int databaseSizeBeforeDelete = bookRepository.findAll().size();
 
-        // Get the book
+        // Get the bookModel
         restBookMockMvc.perform(delete("/api/books/{id}", book.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());

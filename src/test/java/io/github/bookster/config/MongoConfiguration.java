@@ -1,6 +1,7 @@
 package io.github.bookster.config;
 
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import cz.jirutka.spring.embedmongo.EmbeddedMongoBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +15,13 @@ public class MongoConfiguration {
     @Bean
     public Mongo mongo() throws IOException {
         System.setProperty("DB.TRACE","true");
-        return new EmbeddedMongoBuilder()
+        return new MongoClient("localhost");
+        /*return new EmbeddedMongoBuilder()
                 .version("2.6.0")
                 .bindIp("127.0.0.1")
                 .port(allocateRandomPort())
                 .build();
+                */
     }
 
     public static int allocateRandomPort() {
