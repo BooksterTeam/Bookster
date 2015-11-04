@@ -1,0 +1,20 @@
+{
+    "booksterApp": {
+        "copy" : {
+            "home": {
+                "title": "Copys",
+                "createLabel": "Créer un nouveau Copy",
+                "createOrEditLabel": "Créer ou éditer un Copy"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Copy {{ id }} ?"
+            },
+            "detail": {
+                "title": "Copy"
+            },
+            "verified": "Verified",
+            "available": "Available"
+        }
+    }
+}
+
