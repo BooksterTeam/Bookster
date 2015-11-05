@@ -38,6 +38,9 @@ public class Book implements Serializable {
     @DBRef
     private Set<Tag> tags = new HashSet<>();
 
+    @DBRef
+    private Set<Author> authors = new HashSet<>();
+
     public Book() {
     }
 
@@ -106,6 +109,14 @@ public class Book implements Serializable {
         this.tags = tags;
     }
 
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,7 +147,7 @@ public class Book implements Serializable {
                 ", verified='" + verified + "'" +
                 ", published='" + published + "'" +
                 ", subtitle='" + subtitle + "'" +
-                ", tags='" + tags.size() + "'" +
-                '}';
+                ", tags='" + tags + "'" +
+                ", authors='" + authors+"'}";
     }
 }
