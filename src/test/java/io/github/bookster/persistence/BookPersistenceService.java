@@ -2,11 +2,9 @@ package io.github.bookster.persistence;
 
 import io.github.bookster.Application;
 import io.github.bookster.config.MongoConfiguration;
-import io.github.bookster.domain.Author;
 import io.github.bookster.domain.Book;
 import io.github.bookster.domain.Copy;
 import io.github.bookster.repository.CopyRepository;
-import io.github.bookster.repository.author.AuthorRepository;
 import io.github.bookster.repository.book.BookRepository;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -55,7 +53,7 @@ public class BookPersistenceService {
 
     @Test
     public void lookUpCopiesOfBook() throws Exception {
-        Assert.assertThat(bookRepository.getCopiesOfBook(bookId).size(), Matchers.is(1));
+        Assert.assertThat(bookRepository.findCopies(bookId).size(), Matchers.is(1));
 
     }
 }
