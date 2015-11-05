@@ -8,10 +8,14 @@ import io.github.bookster.repository.BookRepository;
 import io.github.bookster.web.model.AuthorModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,6 +43,9 @@ public class AuthorResource {
     @Inject
     private BookRepository bookRepository;
 
+    @Inject
+    private MongoTemplate mongoTemplate;
+
     /**
      * POST  /authors -> Create a new author.
      */
@@ -53,11 +60,6 @@ public class AuthorResource {
         }
 
         Author author = new Author(authorModel.getForename(), authorModel.getSurname());
-
-        if (authorModel.getBook() != null && !authorModel.getBook().isEmpty()) {
-            Book book = bookRepository.findOne(authorModel.getBook());
-            author.getBooks().add(book);
-        }
 
         Author result = authorRepository.save(author);
         return ResponseEntity.created(new URI("/api/authors/" + result.getId()))
@@ -78,11 +80,6 @@ public class AuthorResource {
             return createAuthor(authorModel);
         }
         Author author = new Author(authorModel.getId(), authorModel.getForename(), authorModel.getSurname());
-
-        if (authorModel.getBook()!= null && !authorModel.getBook().isEmpty()) {
-            Book book = Optional.ofNullable(bookRepository.findOne(authorModel.getId())).orElse(null);
-            author.getBooks().add(book);
-        }
 
         Author result = authorRepository.save(author);
         return ResponseEntity.ok()
@@ -113,6 +110,7 @@ public class AuthorResource {
     @Timed
     public ResponseEntity<Author> getAuthor(@PathVariable String id) {
         log.debug("REST request to get Author : {}", id);
+
         return Optional.ofNullable(authorRepository.findOne(id))
             .map(author -> new ResponseEntity<>(
                 author,

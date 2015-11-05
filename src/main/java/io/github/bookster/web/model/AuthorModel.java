@@ -1,6 +1,6 @@
 package io.github.bookster.web.model;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A Author.
@@ -14,7 +14,7 @@ public class AuthorModel {
 
     private String surname;
 
-    private String book;
+    private List<String> books = new ArrayList<>();
 
     public AuthorModel() {
     }
@@ -43,12 +43,12 @@ public class AuthorModel {
         this.surname = surname;
     }
 
-    public String getBook() {
-        return book;
+    public List<String> getBooks() {
+        return books;
     }
 
-    public void setBook(String book) {
-        this.book = book;
+    public void setBooks(List<String> books) {
+        this.books = books;
     }
 
     @Override
@@ -78,6 +78,6 @@ public class AuthorModel {
             "id=" + id +
             ", forename='" + forename + "'" +
             ", surname='" + surname + "'" +
-            ", book='" + book+ '}';
+            ", books='" + books+ '}';
     }
 }
