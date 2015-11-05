@@ -125,3 +125,5 @@ Desktop.ini
 
 # MongoConfiguration
 src/test/java/io/github/bookster/config/MongoConfiguration.java
+
+.jhipster/

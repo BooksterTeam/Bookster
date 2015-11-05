@@ -1,0 +1,20 @@
+{
+    "booksterApp": {
+        "lending" : {
+            "home": {
+                "title": "Lendings",
+                "createLabel": "Créer un nouveau Lending",
+                "createOrEditLabel": "Créer ou éditer un Lending"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Lending {{ id }} ?"
+            },
+            "detail": {
+                "title": "Lending"
+            },
+            "from": "From",
+            "due": "Due"
+        }
+    }
+}
+
