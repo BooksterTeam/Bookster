@@ -31,7 +31,12 @@
                     <span translate="booksterApp.author.book">Book</span>
                 </td>
                 <td>
-                    <span class="form-control-static"><div ng-repeat="b in author.books">{{b.title}}</div></span>
+                    <span class="form-control-static">
+                        <div ng-repeat="b in author.books">
+                            <a ui-sref="book.detail({id:b.id})">{{b.title}} </a>
+                            <br/>
+                        </div>
+                    </span>
                 </td>
             </tr>
             </tbody>

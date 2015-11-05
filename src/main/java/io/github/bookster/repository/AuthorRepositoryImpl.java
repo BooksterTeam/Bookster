@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created on 05/11/15
@@ -25,8 +26,7 @@ public class AuthorRepositoryImpl implements AuthorRepositoryCustom {
     @Override
     public List<Book> findBooks(String id) {
         Query query = new Query();
-        List<Book> books = mongoTemplate.findAll(Book.class);
         query.addCriteria(Criteria.where("authors.$id").is(new ObjectId(id)));
-        return mongoTemplate.find(query, Book.class);
+        return Optional.ofNullable(mongoTemplate.find(query, Book.class)).orElse(null);
     }
 }

@@ -4,7 +4,7 @@ import io.github.bookster.Application;
 import io.github.bookster.domain.Author;
 import io.github.bookster.repository.AuthorRepository;
 
-import io.github.bookster.web.model.AuthorModel;
+import io.github.bookster.web.model.author.AuthorModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
