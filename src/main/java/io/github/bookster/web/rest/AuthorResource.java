@@ -2,20 +2,15 @@ package io.github.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.github.bookster.domain.Author;
-import io.github.bookster.domain.Book;
 import io.github.bookster.repository.AuthorRepository;
-import io.github.bookster.repository.BookRepository;
-import io.github.bookster.web.model.AuthorModel;
+import io.github.bookster.service.AuthorService;
+import io.github.bookster.web.model.author.AuthorModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,17 +36,14 @@ public class AuthorResource {
     private AuthorRepository authorRepository;
 
     @Inject
-    private BookRepository bookRepository;
-
-    @Inject
-    private MongoTemplate mongoTemplate;
+    private AuthorService authorService;
 
     /**
      * POST  /authors -> Create a new author.
      */
     @RequestMapping(value = "/authors",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Author> createAuthor(@RequestBody AuthorModel authorModel) throws URISyntaxException {
         log.debug("REST request to save Author : {}", authorModel);
@@ -63,16 +55,16 @@ public class AuthorResource {
 
         Author result = authorRepository.save(author);
         return ResponseEntity.created(new URI("/api/authors/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("author", result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert("author", result.getId().toString()))
+                .body(result);
     }
 
     /**
      * PUT  /authors -> Updates an existing author.
      */
     @RequestMapping(value = "/authors",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Author> updateAuthor(@RequestBody AuthorModel authorModel) throws URISyntaxException {
         log.debug("REST request to update Author : {}", authorModel);
@@ -83,19 +75,19 @@ public class AuthorResource {
 
         Author result = authorRepository.save(author);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("author", author.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert("author", author.getId().toString()))
+                .body(result);
     }
 
     /**
      * GET  /authors -> get all the authors.
      */
     @RequestMapping(value = "/authors",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Author>> getAllAuthors(Pageable pageable)
-        throws URISyntaxException {
+            throws URISyntaxException {
         Page<Author> page = authorRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/authors");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -105,25 +97,20 @@ public class AuthorResource {
      * GET  /authors/:id -> get the "id" author.
      */
     @RequestMapping(value = "/authors/{id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Author> getAuthor(@PathVariable String id) {
+    public ResponseEntity<AuthorModel> getAuthor(@PathVariable String id) {
         log.debug("REST request to get Author : {}", id);
-
-        return Optional.ofNullable(authorRepository.findOne(id))
-            .map(author -> new ResponseEntity<>(
-                author,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return Optional.ofNullable(authorService.getAuthor(id)).map(author -> new ResponseEntity<>(author, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
      * DELETE  /authors/:id -> delete the "id" author.
      */
     @RequestMapping(value = "/authors/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteAuthor(@PathVariable String id) {
         log.debug("REST request to delete Author : {}", id);

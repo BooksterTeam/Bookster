@@ -1,4 +1,4 @@
-package io.github.bookster.web.model;
+package io.github.bookster.web.model.author;
 
 import java.util.*;
 
@@ -14,9 +14,16 @@ public class AuthorModel {
 
     private String surname;
 
-    private List<String> books = new ArrayList<>();
+    private List<BookDataModel> books = new ArrayList<>();
 
     public AuthorModel() {
+    }
+
+    public AuthorModel(String id, String forename, String surname, List<BookDataModel> books) {
+        this.id = id;
+        this.forename = forename;
+        this.surname = surname;
+        this.books = books;
     }
 
     public String getId() {
@@ -43,11 +50,11 @@ public class AuthorModel {
         this.surname = surname;
     }
 
-    public List<String> getBooks() {
+    public List<BookDataModel> getBooks() {
         return books;
     }
 
-    public void setBooks(List<String> books) {
+    public void setBooks(List<BookDataModel> books) {
         this.books = books;
     }
 

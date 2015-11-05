@@ -4,7 +4,8 @@ import io.github.bookster.Application;
 import io.github.bookster.domain.Author;
 import io.github.bookster.repository.AuthorRepository;
 
-import io.github.bookster.web.model.AuthorModel;
+import io.github.bookster.service.AuthorService;
+import io.github.bookster.web.model.author.AuthorModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,6 +56,9 @@ public class AuthorResourceTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
+    @Inject
+    private AuthorService authorService;
+
     private MockMvc restAuthorMockMvc;
 
     private Author author;
@@ -66,6 +70,7 @@ public class AuthorResourceTest {
         MockitoAnnotations.initMocks(this);
         AuthorResource authorResource = new AuthorResource();
         ReflectionTestUtils.setField(authorResource, "authorRepository", authorRepository);
+        ReflectionTestUtils.setField(authorResource, "authorService", authorService);
         this.restAuthorMockMvc = MockMvcBuilders.standaloneSetup(authorResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
