@@ -104,7 +104,7 @@ public class AuthorResource {
     @Timed
     public ResponseEntity<AuthorModel> getAuthor(@PathVariable String id) {
         log.debug("REST request to get Author : {}", id);
-        return Optional.ofNullable(authorService.getAuthor(id)).map(authorModel -> new ResponseEntity<>(authorModel, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return authorService.getAuthor(id);
     }
 
     /**
