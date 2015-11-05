@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -25,9 +26,6 @@ public class Author implements Serializable {
 
     @Field("surname")
     private String surname;
-
-    @DBRef
-    private HashSet<Book> books = new HashSet<>();
 
     public Author() {
     }
@@ -67,14 +65,6 @@ public class Author implements Serializable {
         this.surname = surname;
     }
 
-    public HashSet<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(HashSet<Book> books) {
-        this.books = books;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -101,7 +91,6 @@ public class Author implements Serializable {
         return "Author{" +
             "id=" + id +
             ", forename='" + forename + "'" +
-            ", surname='" + surname + "'" +
-            ", books='" + Arrays.toString(books.toArray())+'}';
+            ", surname='" + surname +'}';
     }
 }
