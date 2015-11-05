@@ -31,7 +31,7 @@
                     <span translate="booksterApp.copy.book">Book</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{copy.book}}</span>
+                    <span class="form-control-static"><a ui-sref="book.detail({id:copy.book.id})">{{copy.book.title}}</a></span>
                 </td>
             </tr>
             </tbody>
