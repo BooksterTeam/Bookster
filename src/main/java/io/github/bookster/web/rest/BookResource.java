@@ -7,6 +7,7 @@ import io.github.bookster.domain.Tag;
 import io.github.bookster.repository.author.AuthorRepository;
 import io.github.bookster.repository.book.BookRepository;
 import io.github.bookster.repository.TagRepository;
+import io.github.bookster.service.BookService;
 import io.github.bookster.web.model.book.BookModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
@@ -43,6 +44,9 @@ public class BookResource {
 
     @Inject
     private AuthorRepository authorRepository;
+
+    @Inject
+    private BookService bookService;
 
     /**
      * POST  /books -> Create a new book.
@@ -116,13 +120,9 @@ public class BookResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Book> getBook(@PathVariable String id) {
+    public ResponseEntity<BookModel> getBook(@PathVariable String id) {
         log.debug("REST request to get Book : {}", id);
-        return Optional.ofNullable(bookRepository.findOne(id))
-            .map(book -> new ResponseEntity<>(
-                book,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return Optional.ofNullable(bookService.getBook(id)).map(bookModel -> new ResponseEntity<>(bookModel, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**

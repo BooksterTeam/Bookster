@@ -22,7 +22,7 @@ angular.module('booksterApp')
             if (statusState === 'UP') {
                 return 'label-success';
             } else {
-                return 'label-danger';
+                return 'label-warning';
             }
         };
 

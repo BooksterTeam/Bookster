@@ -3,6 +3,7 @@ package io.github.bookster.web.rest;
 import io.github.bookster.Application;
 import io.github.bookster.domain.Book;
 import io.github.bookster.repository.book.BookRepository;
+import io.github.bookster.service.BookService;
 import io.github.bookster.web.model.book.BookModel;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +60,9 @@ public class BookResourceTest {
     private BookRepository bookRepository;
 
     @Inject
+    private BookService bookService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -74,6 +78,7 @@ public class BookResourceTest {
         MockitoAnnotations.initMocks(this);
         BookResource bookResource = new BookResource();
         ReflectionTestUtils.setField(bookResource, "bookRepository", bookRepository);
+        ReflectionTestUtils.setField(bookResource, "bookService", bookService);
         this.restBookMockMvc = MockMvcBuilders.standaloneSetup(bookResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -152,9 +157,9 @@ public class BookResourceTest {
             .andExpect(jsonPath("$.id").value(book.getId()))
             .andExpect(jsonPath("$.isbn").value(DEFAULT_ISBN.toString()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
-            .andExpect(jsonPath("$.verified").value(DEFAULT_VERIFIED.booleanValue()))
             .andExpect(jsonPath("$.subtitle").value(DEFAULT_SUBTITLE.toString()));
 
+            //.andExpect(jsonPath("$.verified").value(DEFAULT_VERIFIED.booleanValue()))
         //Todo https://github.com/BooksterTeam/Bookster/issues/4
         //.andExpect(jsonPath("$.published").value(DEFAULT_PUBLISHED.toString()))
     }

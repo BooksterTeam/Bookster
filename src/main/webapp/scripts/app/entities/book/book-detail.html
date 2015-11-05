@@ -60,13 +60,26 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="booksterApp.book.authors">tags</span>
+                    <span translate="booksterApp.book.authors">authors</span>
                 </td>
                 <td>
                     <span class="form-control-static"><div ng-repeat="a in book.authors">
                         <a ui-sref="author.detail({id:a.id})">{{a.forename}} {{a.surname}}</a>
                         <br/>
                     </div> </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="booksterApp.book.copies">copies</span>
+                </td>
+                <td>
+
+                    <span class="form-control-static"><div ng-repeat="copi in book.copies">{{b}}
+                        <a ui-sref="copy.detail({id:copi.id})">{{copi.available}}</a>
+                        <br/>
+                    </div> </span>
+
                 </td>
             </tr>
 

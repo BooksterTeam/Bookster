@@ -30,10 +30,14 @@ public class BookService {
 
     // Todo https://github.com/BooksterTeam/Bookster/issues/14
     public BookModel getBook(String id) {
+        log.info("________________________");
+        log.info("GETTING");
         return Optional.ofNullable(bookRepository.findOne(id)).map(book -> parseBook(book, bookRepository.findCopies(id))).orElse(null);
     }
 
     private BookModel parseBook(Book book, List<Copy> copies) {
-        return new BookModel(book.getId(), book.getIsbn(), book.getTitle(), book.getPublished(), book.getSubtitle(), "IMPLEMENT ME", book.getAuthors().stream().map(author -> new AuthorDataModel(author.getId(), author.getForename() + author.getSurname())).collect(Collectors.toList()), copies.stream().map(copy -> new CopyDataModel(copy.getId(), copy.getAvailable())).collect(Collectors.toList()));
+        log.info("________________________");
+        log.info("PARSING");
+        return new BookModel(book.getId(), book.getIsbn(), book.getTitle(), Optional.ofNullable(book.getPublished()).orElse(""), Optional.ofNullable(book.getSubtitle()).orElse(""), "IMPLEMENT ME", book.getAuthors().stream().map(author -> new AuthorDataModel(author.getId(), author.getForename() + author.getSurname())).collect(Collectors.toList()), copies.stream().map(copy -> new CopyDataModel(copy.getId(), Optional.ofNullable(copy.getAvailable()).orElse(false))).collect(Collectors.toList()));
     }
 }
