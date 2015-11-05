@@ -131,7 +131,7 @@ public class LendingResource {
                 new ResponseEntity<>(new LendingModel(id, lending.getFrom(), lending.getDue(),
                         Optional.ofNullable(lending.getCopy()).map(copy -> copy.getId()).orElse(""),
                         Optional.ofNullable(lending.getUser()).map(user -> user.getId()).orElse("")), HttpStatus.OK)
-        ).orElse(new ResponseEntity<>(HttpStatus.FOUND));
+        ).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
