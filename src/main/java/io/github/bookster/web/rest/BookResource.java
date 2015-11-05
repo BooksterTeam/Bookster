@@ -7,7 +7,7 @@ import io.github.bookster.domain.Tag;
 import io.github.bookster.repository.AuthorRepository;
 import io.github.bookster.repository.BookRepository;
 import io.github.bookster.repository.TagRepository;
-import io.github.bookster.web.model.BookModel;
+import io.github.bookster.web.model.book.BookModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

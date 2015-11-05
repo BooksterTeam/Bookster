@@ -1,6 +1,8 @@
-package io.github.bookster.web.model;
+package io.github.bookster.web.model.book;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,6 +28,8 @@ public class BookModel {
     private Set<String> authors = new HashSet<>();
 
     private String author;
+
+    private List<CopyDataModel> copyDataModels = new ArrayList<>();
 
     public BookModel() {
     }
@@ -100,5 +104,13 @@ public class BookModel {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public List<CopyDataModel> getCopyDataModels() {
+        return copyDataModels;
+    }
+
+    public void setCopyDataModels(List<CopyDataModel> copyDataModels) {
+        this.copyDataModels = copyDataModels;
     }
 }
