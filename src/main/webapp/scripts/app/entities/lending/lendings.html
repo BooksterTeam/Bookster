@@ -41,6 +41,8 @@
             <thead>
                 <tr>
                     <th translate="global.field.id">ID</th>
+                    <th translate="booksterApp.lending.copy">Copy</th>
+                    <th translate="booksterApp.lending.borrower">Borrower</th>
                     <th translate="booksterApp.lending.from">From</th>
                     <th translate="booksterApp.lending.due">Due</th>
                     <th></th>
@@ -49,6 +51,8 @@
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
                 <tr ng-repeat="lending in lendings track by lending.id">
                     <td><a ui-sref="lending.detail({id:lending.id})">{{lending.id}}</a></td>
+                    <td>{{lending.copi}}</td>
+                    <td>{{lending.borrower}}</td>
                     <td>{{lending.from}}</td>
                     <td>{{lending.due}}</td>
                     <td>

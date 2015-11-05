@@ -46,6 +46,8 @@ angular.module('booksterApp')
 
         $scope.clear = function () {
             $scope.lending = {
+                borrower:null,
+                copi:null,
                 from: null,
                 due: null,
                 id: null

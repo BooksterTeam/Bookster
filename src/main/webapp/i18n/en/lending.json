@@ -16,7 +16,9 @@
                 "title": "Lending"
             },
             "from": "From",
-            "due": "Due"
+            "due": "Due",
+            "copy": "Copy",
+            "borrower": "Borrower"
         }
     }
 }

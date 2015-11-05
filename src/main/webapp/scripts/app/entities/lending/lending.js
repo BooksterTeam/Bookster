@@ -61,6 +61,8 @@ angular.module('booksterApp')
                         resolve: {
                             entity: function () {
                                 return {
+                                    borrower:null,
+                                    copi:null,
                                     from: null,
                                     due: null,
                                     id: null
