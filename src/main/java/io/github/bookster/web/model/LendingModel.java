@@ -1,5 +1,7 @@
-package io.github.bookster.domain;
+package io.github.bookster.web.model;
 
+import io.github.bookster.domain.Copy;
+import io.github.bookster.domain.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,23 +14,20 @@ import java.util.Objects;
  * A Lending.
  */
 
-@Document(collection = "lending")
-public class Lending implements Serializable {
+public class LendingModel implements Serializable {
 
-    @Id
     private String id;
 
-    @Field("from")
     private String from;
 
-    @Field("due")
     private String due;
-
-    @DBRef
+    
     private Copy copy;
 
-    @DBRef
     private User user;
+
+    public LendingModel() {
+    }
 
     public String getId() {
         return id;
@@ -79,9 +78,9 @@ public class Lending implements Serializable {
             return false;
         }
 
-        Lending lending = (Lending) o;
+        LendingModel lendingModel = (LendingModel) o;
 
-        if ( ! Objects.equals(id, lending.id)) return false;
+        if ( ! Objects.equals(id, lendingModel.id)) return false;
 
         return true;
     }
@@ -97,7 +96,7 @@ public class Lending implements Serializable {
             "id=" + id +
             ", from='" + from + "'" +
             ", due='" + due + "'" +
-            ", copy='" + copy+"'"+
+            ", copy='" + copy+"'"+ 
             ", borrower='" + user+"'}";
     }
 }
