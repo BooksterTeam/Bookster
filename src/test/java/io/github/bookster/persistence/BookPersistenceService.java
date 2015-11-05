@@ -2,9 +2,9 @@ package io.github.bookster.persistence;
 
 import io.github.bookster.Application;
 import io.github.bookster.config.MongoConfiguration;
-import io.github.bookster.domain.Author;
 import io.github.bookster.domain.Book;
-import io.github.bookster.repository.author.AuthorRepository;
+import io.github.bookster.domain.Copy;
+import io.github.bookster.repository.CopyRepository;
 import io.github.bookster.repository.book.BookRepository;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -29,35 +29,31 @@ import javax.inject.Inject;
 @WebAppConfiguration
 @IntegrationTest
 @Import(MongoConfiguration.class)
-public class AuthorPeristenceService {
+public class BookPersistenceService {
 
     @Inject
-    private AuthorRepository authorRepository;
+    private CopyRepository copyRepository;
 
     @Inject
     private BookRepository bookRepository;
 
-    private String authorId;
-
+    private String bookId;
 
     @Before
     public void setUp() throws Exception {
 
-        Author author = new Author("test", "test");
-        authorRepository.save(author);
-        authorId = author.getId();
+        Book book = new Book();
+        bookRepository.save(book);
+        bookId = book.getId();
 
-        Book book1 = new Book();
-        book1.getAuthors().add(author);
-        bookRepository.save(book1);
-
-        Book book2 = new Book();
-        book2.getAuthors().add(author);
-        bookRepository.save(book2);
+        Copy copy = new Copy(true, true);
+        copy.setBook(book);
+        copyRepository.save(copy);
     }
 
     @Test
-    public void lookupForAuthorIdInBooks() throws Exception {
-        Assert.assertThat(authorRepository.findBooks(authorId).size(), Matchers.is(2));
+    public void lookUpCopiesOfBook() throws Exception {
+        Assert.assertThat(bookRepository.findCopies(bookId).size(), Matchers.is(1));
+
     }
 }

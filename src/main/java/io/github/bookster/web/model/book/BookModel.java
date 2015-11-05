@@ -1,6 +1,8 @@
-package io.github.bookster.web.model;
+package io.github.bookster.web.model.book;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,11 +25,24 @@ public class BookModel {
 
     private String tag;
 
-    private Set<String> authors = new HashSet<>();
+    private List<AuthorDataModel> authors = new ArrayList<>();
 
     private String author;
 
+    private List<CopyDataModel> copies = new ArrayList<>();
+
     public BookModel() {
+    }
+
+    public BookModel(String id, String isbn, String title, String published, String subtitle, String tag, List<AuthorDataModel> authors, List<CopyDataModel> copies) {
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
+        this.published = published;
+        this.subtitle = subtitle;
+        this.tag = tag;
+        this.authors = authors;
+        this.copies = copies;
     }
 
     public String getId() {
@@ -86,11 +101,11 @@ public class BookModel {
         this.verified = verified;
     }
 
-    public Set<String> getAuthors() {
+    public List<AuthorDataModel> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<String> authors) {
+    public void setAuthors(List<AuthorDataModel> authors) {
         this.authors = authors;
     }
 
@@ -100,5 +115,13 @@ public class BookModel {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public List<CopyDataModel> getCopies() {
+        return copies;
+    }
+
+    public void setCopies(List<CopyDataModel> copies) {
+        this.copies = copies;
     }
 }

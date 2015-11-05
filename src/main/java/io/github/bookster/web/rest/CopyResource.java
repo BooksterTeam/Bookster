@@ -3,7 +3,7 @@ package io.github.bookster.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import io.github.bookster.domain.Book;
 import io.github.bookster.domain.Copy;
-import io.github.bookster.repository.BookRepository;
+import io.github.bookster.repository.book.BookRepository;
 import io.github.bookster.repository.CopyRepository;
 import io.github.bookster.web.model.CopyModel;
 import io.github.bookster.web.rest.util.HeaderUtil;

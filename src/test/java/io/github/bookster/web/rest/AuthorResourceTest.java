@@ -2,7 +2,7 @@ package io.github.bookster.web.rest;
 
 import io.github.bookster.Application;
 import io.github.bookster.domain.Author;
-import io.github.bookster.repository.AuthorRepository;
+import io.github.bookster.repository.author.AuthorRepository;
 
 import io.github.bookster.service.AuthorService;
 import io.github.bookster.web.model.author.AuthorModel;
