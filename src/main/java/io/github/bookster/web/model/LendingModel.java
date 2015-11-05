@@ -17,9 +17,17 @@ public class LendingModel implements Serializable {
 
     private String copi;
 
-    private String user;
+    private String borrower;
 
     public LendingModel() {
+    }
+
+    public LendingModel(String id, String from, String due, String copi, String borrower) {
+        this.id = id;
+        this.from = from;
+        this.due = due;
+        this.copi = copi;
+        this.borrower = borrower;
     }
 
     public String getId() {
@@ -54,12 +62,12 @@ public class LendingModel implements Serializable {
         this.copi = copi;
     }
 
-    public String getUser() {
-        return user;
+    public String getBorrower() {
+        return borrower;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setBorrower(String borrower) {
+        this.borrower = borrower;
     }
 
     @Override
@@ -90,6 +98,6 @@ public class LendingModel implements Serializable {
                 ", from='" + from + "'" +
                 ", due='" + due + "'" +
                 ", copi='" + copi + "'" +
-                ", borrower='" + user + "'}";
+                ", borrower='" + borrower + "'}";
     }
 }

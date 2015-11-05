@@ -48,8 +48,8 @@ public class LendingResource {
      * POST  /lendings -> Create a new lending.
      */
     @RequestMapping(value = "/lendings",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Lending> createLending(@RequestBody LendingModel lendingModel) throws URISyntaxException {
         log.debug("REST request to save Lending : {}", lendingModel);
@@ -62,22 +62,25 @@ public class LendingResource {
             Copy copy = copyRepository.findOne(lendingModel.getCopi());
             lending.setCopy(copy);
         }
-        if (lendingModel.getUser() != null) {
-            User user= userRepository.findOne(lendingModel.getUser());
+        if (lendingModel.getBorrower() != null) {
+            User user = userRepository.findOne(lendingModel.getBorrower());
             lending.setUser(user);
         }
+        log.debug("_______________________");
+        log.debug("Saving lending: {}", lending);
         Lending result = lendingRepository.save(lending);
+        log.debug("Saved lending: {}", lending);
         return ResponseEntity.created(new URI("/api/lendings/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("lending", result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert("lending", result.getId().toString()))
+                .body(result);
     }
 
     /**
      * PUT  /lendings -> Updates an existing lending.
      */
     @RequestMapping(value = "/lendings",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Lending> updateLending(@RequestBody LendingModel lendingModel) throws URISyntaxException {
         log.debug("REST request to update Lending : {}", lendingModel);
@@ -85,31 +88,31 @@ public class LendingResource {
             return createLending(lendingModel);
         }
 
-        Lending lending = new Lending(lendingModel.getId(),lendingModel.getFrom(), lendingModel.getDue());
+        Lending lending = new Lending(lendingModel.getId(), lendingModel.getFrom(), lendingModel.getDue());
 
         if (lendingModel.getCopi() != null) {
             Copy copy = copyRepository.findOne(lendingModel.getCopi());
             lending.setCopy(copy);
         }
-        if (lendingModel.getUser() != null) {
-            User user= userRepository.findOne(lendingModel.getUser());
+        if (lendingModel.getBorrower() != null) {
+            User user = userRepository.findOne(lendingModel.getBorrower());
             lending.setUser(user);
         }
         Lending result = lendingRepository.save(lending);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("lending", lending.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert("lending", lending.getId().toString()))
+                .body(result);
     }
 
     /**
      * GET  /lendings -> get all the lendings.
      */
     @RequestMapping(value = "/lendings",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Lending>> getAllLendings(Pageable pageable)
-        throws URISyntaxException {
+            throws URISyntaxException {
         Page<Lending> page = lendingRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/lendings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -119,24 +122,24 @@ public class LendingResource {
      * GET  /lendings/:id -> get the "id" lending.
      */
     @RequestMapping(value = "/lendings/{id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Lending> getLending(@PathVariable String id) {
+    public ResponseEntity<LendingModel> getLending(@PathVariable String id) {
         log.debug("REST request to get Lending : {}", id);
-        return Optional.ofNullable(lendingRepository.findOne(id))
-            .map(lending -> new ResponseEntity<>(
-                lending,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return Optional.ofNullable(lendingRepository.findOne(id)).map(lending ->
+                new ResponseEntity<>(new LendingModel(id, lending.getFrom(), lending.getDue(),
+                        Optional.ofNullable(lending.getCopy()).map(copy -> copy.getId()).orElse(""),
+                        Optional.ofNullable(lending.getUser()).map(user -> user.getId()).orElse("")), HttpStatus.OK)
+        ).orElse(new ResponseEntity<>(HttpStatus.FOUND));
     }
 
     /**
      * DELETE  /lendings/:id -> delete the "id" lending.
      */
     @RequestMapping(value = "/lendings/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteLending(@PathVariable String id) {
         log.debug("REST request to delete Lending : {}", id);
