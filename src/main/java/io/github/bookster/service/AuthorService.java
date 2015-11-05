@@ -2,7 +2,7 @@ package io.github.bookster.service;
 
 import io.github.bookster.domain.Author;
 import io.github.bookster.domain.Book;
-import io.github.bookster.repository.AuthorRepository;
+import io.github.bookster.repository.author.AuthorRepository;
 import io.github.bookster.web.model.author.AuthorModel;
 import io.github.bookster.web.model.author.BookDataModel;
 import org.slf4j.Logger;

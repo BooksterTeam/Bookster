@@ -1,4 +1,4 @@
-package io.github.bookster.repository;
+package io.github.bookster.repository.author;
 
 import io.github.bookster.domain.Author;
 

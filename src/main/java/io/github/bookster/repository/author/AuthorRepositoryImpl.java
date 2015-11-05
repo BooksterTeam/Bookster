@@ -1,4 +1,4 @@
-package io.github.bookster.repository;
+package io.github.bookster.repository.author;
 
 import io.github.bookster.domain.Book;
 import org.bson.types.ObjectId;
@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
