@@ -21,7 +21,9 @@
             "published": "Published",
             "subtitle": "Subtitle",
             "tag": "Tag",
-            "tags": "Tags"
+            "tags": "Tags",
+            "authors": "Authors",
+            "author": "Author"
         }
     }
 }

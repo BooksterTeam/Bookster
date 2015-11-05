@@ -61,6 +61,8 @@ angular.module('booksterApp')
                         resolve: {
                             entity: function () {
                                 return {
+                                    authors:[],
+                                    author:null,
                                     isbn: null,
                                     title: null,
                                     verified: null,
