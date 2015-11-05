@@ -1,5 +1,8 @@
 package io.github.bookster.web.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created on 04/11/15
  * author: nixoxo
@@ -19,6 +22,8 @@ public class BookModel {
     private String subtitle;
 
     private String tag;
+
+    private Set<String> authors = new HashSet<>();
 
     public BookModel() {
     }
@@ -77,5 +82,13 @@ public class BookModel {
 
     public void setVerified(Boolean verified) {
         this.verified = verified;
+    }
+
+    public Set<String> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<String> authors) {
+        this.authors = authors;
     }
 }
