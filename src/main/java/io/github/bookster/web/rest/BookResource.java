@@ -1,8 +1,10 @@
 package io.github.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.github.bookster.domain.Author;
 import io.github.bookster.domain.Book;
 import io.github.bookster.domain.Tag;
+import io.github.bookster.repository.AuthorRepository;
 import io.github.bookster.repository.BookRepository;
 import io.github.bookster.repository.TagRepository;
 import io.github.bookster.web.model.BookModel;
@@ -40,6 +42,9 @@ public class BookResource {
     @Inject
     private TagRepository tagRepository;
 
+    @Inject
+    private AuthorRepository authorRepository;
+
     /**
      * POST  /books -> Create a new book.
      */
@@ -57,6 +62,10 @@ public class BookResource {
             Tag tag =  tagRepository.findOne(bookModel.getTag());
             book.getTags().add(tag);
         }
+        if (bookModel.getAuthor() != null) {
+            Author author = authorRepository.findOne(bookModel.getAuthor());
+            book.getAuthors().add(author);
+        }
         Book result = bookRepository.save(book);
         return ResponseEntity.created(new URI("/api/books/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("book", result.getId().toString()))
@@ -71,20 +80,19 @@ public class BookResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Book> updateBook(@RequestBody BookModel model) throws URISyntaxException {
-        log.debug("REST request to update Book : {}", model);
-        if (model.getId() == null) {
-            return createBook(model);
+    public ResponseEntity<Book> updateBook(@RequestBody BookModel bookModel) throws URISyntaxException {
+        log.debug("REST request to update Book : {}", bookModel);
+        if (bookModel.getId() == null &&  bookRepository.findOne(bookModel.getId())== null) {
+            return createBook(bookModel);
         }
-        Book book = bookRepository.findOne(model.getId());
-        book.setIsbn(model.getIsbn());
-        book.setTitle(model.getTitle());
-        book.setPublished(model.getPublished());
-        book.setVerified(model.getVerified());
-        book.setSubtitle(model.getSubtitle());
+        Book book = new Book(bookModel.getId(), bookModel.getIsbn(), bookModel.getTitle(), bookModel.getVerified(), bookModel.getPublished(), bookModel.getSubtitle());
+        if (bookModel.getAuthor() != null) {
+            Author author = authorRepository.findOne(bookModel.getAuthor());
+            book.getAuthors().add(author);
+        }
         Book result = bookRepository.save(book);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("book", model.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("book", bookModel.getId().toString()))
             .body(result);
     }
 

@@ -25,6 +25,8 @@ public class BookModel {
 
     private Set<String> authors = new HashSet<>();
 
+    private String author;
+
     public BookModel() {
     }
 
@@ -90,5 +92,13 @@ public class BookModel {
 
     public void setAuthors(Set<String> authors) {
         this.authors = authors;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
