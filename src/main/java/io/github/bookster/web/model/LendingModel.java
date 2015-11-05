@@ -1,12 +1,5 @@
 package io.github.bookster.web.model;
 
-import io.github.bookster.domain.Copy;
-import io.github.bookster.domain.User;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -21,10 +14,10 @@ public class LendingModel implements Serializable {
     private String from;
 
     private String due;
-    
-    private Copy copy;
 
-    private User user;
+    private String copi;
+
+    private String user;
 
     public LendingModel() {
     }
@@ -53,19 +46,19 @@ public class LendingModel implements Serializable {
         this.due = due;
     }
 
-    public Copy getCopy() {
-        return copy;
+    public String getCopi() {
+        return copi;
     }
 
-    public void setCopy(Copy copy) {
-        this.copy = copy;
+    public void setCopi(String copi) {
+        this.copi = copi;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -80,7 +73,7 @@ public class LendingModel implements Serializable {
 
         LendingModel lendingModel = (LendingModel) o;
 
-        if ( ! Objects.equals(id, lendingModel.id)) return false;
+        if (!Objects.equals(id, lendingModel.id)) return false;
 
         return true;
     }
@@ -93,10 +86,10 @@ public class LendingModel implements Serializable {
     @Override
     public String toString() {
         return "Lending{" +
-            "id=" + id +
-            ", from='" + from + "'" +
-            ", due='" + due + "'" +
-            ", copy='" + copy+"'"+ 
-            ", borrower='" + user+"'}";
+                "id=" + id +
+                ", from='" + from + "'" +
+                ", due='" + due + "'" +
+                ", copi='" + copi + "'" +
+                ", borrower='" + user + "'}";
     }
 }

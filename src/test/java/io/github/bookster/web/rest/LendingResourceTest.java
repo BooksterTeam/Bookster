@@ -4,6 +4,7 @@ import io.github.bookster.Application;
 import io.github.bookster.domain.Lending;
 import io.github.bookster.repository.LendingRepository;
 
+import io.github.bookster.web.model.LendingModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,8 @@ public class LendingResourceTest {
 
     private Lending lending;
 
+    private LendingModel lendingModel;
+
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -74,6 +77,10 @@ public class LendingResourceTest {
         lending = new Lending();
         lending.setFrom(DEFAULT_FROM);
         lending.setDue(DEFAULT_DUE);
+
+        lendingModel = new LendingModel();
+        lendingModel.setFrom(DEFAULT_FROM);
+        lendingModel.setDue(DEFAULT_DUE);
     }
 
     @Test
@@ -84,7 +91,7 @@ public class LendingResourceTest {
 
         restLendingMockMvc.perform(post("/api/lendings")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(lending)))
+                .content(TestUtil.convertObjectToJsonBytes(lendingModel)))
                 .andExpect(status().isCreated());
 
         // Validate the Lending in the database
@@ -99,12 +106,12 @@ public class LendingResourceTest {
     public void getAllLendings() throws Exception {
         // Initialize the database
         lendingRepository.save(lending);
-
+        lendingModel.setId(lending.getId());
         // Get all the lendings
         restLendingMockMvc.perform(get("/api/lendings"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(lending.getId())))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(lendingModel.getId())))
                 .andExpect(jsonPath("$.[*].from").value(hasItem(DEFAULT_FROM.toString())))
                 .andExpect(jsonPath("$.[*].due").value(hasItem(DEFAULT_DUE.toString())));
     }
@@ -134,16 +141,16 @@ public class LendingResourceTest {
     public void updateLending() throws Exception {
         // Initialize the database
         lendingRepository.save(lending);
-
+        lendingModel.setId(lending.getId());
 		int databaseSizeBeforeUpdate = lendingRepository.findAll().size();
 
         // Update the lending
-        lending.setFrom(UPDATED_FROM);
-        lending.setDue(UPDATED_DUE);
+        lendingModel.setFrom(UPDATED_FROM);
+        lendingModel.setDue(UPDATED_DUE);
 
         restLendingMockMvc.perform(put("/api/lendings")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(lending)))
+                .content(TestUtil.convertObjectToJsonBytes(lendingModel)))
                 .andExpect(status().isOk());
 
         // Validate the Lending in the database

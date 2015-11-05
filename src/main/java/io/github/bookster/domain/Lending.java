@@ -30,6 +30,20 @@ public class Lending implements Serializable {
     @DBRef
     private User user;
 
+    public Lending() {
+    }
+
+    public Lending(String from, String due) {
+        this.from = from;
+        this.due = due;
+    }
+
+    public Lending(String id, String from, String due) {
+        this.id = id;
+        this.from = from;
+        this.due = due;
+    }
+
     public String getId() {
         return id;
     }

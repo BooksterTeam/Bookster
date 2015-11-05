@@ -1,8 +1,13 @@
 package io.github.bookster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.github.bookster.domain.Copy;
 import io.github.bookster.domain.Lending;
+import io.github.bookster.domain.User;
+import io.github.bookster.repository.CopyRepository;
 import io.github.bookster.repository.LendingRepository;
+import io.github.bookster.repository.UserRepository;
+import io.github.bookster.web.model.LendingModel;
 import io.github.bookster.web.rest.util.HeaderUtil;
 import io.github.bookster.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -33,6 +38,12 @@ public class LendingResource {
     @Inject
     private LendingRepository lendingRepository;
 
+    @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private CopyRepository copyRepository;
+
     /**
      * POST  /lendings -> Create a new lending.
      */
@@ -40,10 +51,20 @@ public class LendingResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Lending> createLending(@RequestBody Lending lending) throws URISyntaxException {
-        log.debug("REST request to save Lending : {}", lending);
-        if (lending.getId() != null) {
+    public ResponseEntity<Lending> createLending(@RequestBody LendingModel lendingModel) throws URISyntaxException {
+        log.debug("REST request to save Lending : {}", lendingModel);
+        if (lendingModel.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new lending cannot already have an ID").body(null);
+        }
+        Lending lending = new Lending(lendingModel.getFrom(), lendingModel.getDue());
+
+        if (lendingModel.getCopi() != null) {
+            Copy copy = copyRepository.findOne(lendingModel.getCopi());
+            lending.setCopy(copy);
+        }
+        if (lendingModel.getUser() != null) {
+            User user= userRepository.findOne(lendingModel.getUser());
+            lending.setUser(user);
         }
         Lending result = lendingRepository.save(lending);
         return ResponseEntity.created(new URI("/api/lendings/" + result.getId()))
@@ -58,10 +79,21 @@ public class LendingResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Lending> updateLending(@RequestBody Lending lending) throws URISyntaxException {
-        log.debug("REST request to update Lending : {}", lending);
-        if (lending.getId() == null) {
-            return createLending(lending);
+    public ResponseEntity<Lending> updateLending(@RequestBody LendingModel lendingModel) throws URISyntaxException {
+        log.debug("REST request to update Lending : {}", lendingModel);
+        if (lendingModel.getId() == null) {
+            return createLending(lendingModel);
+        }
+
+        Lending lending = new Lending(lendingModel.getId(),lendingModel.getFrom(), lendingModel.getDue());
+
+        if (lendingModel.getCopi() != null) {
+            Copy copy = copyRepository.findOne(lendingModel.getCopi());
+            lending.setCopy(copy);
+        }
+        if (lendingModel.getUser() != null) {
+            User user= userRepository.findOne(lendingModel.getUser());
+            lending.setUser(user);
         }
         Lending result = lendingRepository.save(lending);
         return ResponseEntity.ok()
