@@ -5,6 +5,7 @@ before_install:
     - npm install -g grunt-cli
     - npm install -g bower
     - npm install -g tsd
+    - npm install -g protractor
 script:
     - ./gradlew test
 notifications:
