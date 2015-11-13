@@ -13,7 +13,12 @@ before_install:
   - npm install -g grunt-cli
   - npm install -g bower
   - npm install -g tsd
+  - npm install -g chai
+  - npm install -g cucumber
   - npm install -g protractor
+
+before_script:
+  - grunt travis-protractor
 
 script:
   - ./gradlew test
