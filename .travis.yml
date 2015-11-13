@@ -17,9 +17,6 @@ before_install:
   - npm install -g cucumber
   - npm install -g protractor
 
-before_script:
-  - grunt travis-protractor
-
 script:
   - ./gradlew test
 
