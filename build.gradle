@@ -3,8 +3,11 @@ buildscript {
         mavenLocal()
         jcenter()
         maven { url 'http://repo.spring.io/plugins-release' }
+        maven { url 'http://repo.spring.io/milestone' }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
+        classpath group: 'org.sonarqube.gradle', name: 'gradle-sonarqube-plugin', version: '1.0'
         classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: spring_boot_version
         classpath group: 'org.springframework.build.gradle', name: 'propdeps-plugin', version: '0.0.7'
         classpath group: 'com.moowork.gradle', name: 'gradle-node-plugin', version: '0.11'
@@ -27,11 +30,24 @@ bootRepackage {
 
 springBoot {
     mainClass = 'io.github.bookster.Application'
+    executable = true
 }
 
 bootRun {
     addResources = false
 }
+
+test {
+    println 'Starting the Unit and Integration test'
+    include '**/*UnitTest*'
+    include '**/*IntTest*'
+}
+
+task cucumberTest(type: Test) {
+    include '**/CucumberTest*'
+}
+
+test.finalizedBy(cucumberTest)
 
 apply from: 'yeoman.gradle'
 apply from: 'sonar.gradle'
@@ -64,17 +80,6 @@ repositories {
     maven { url 'http://repo.maven.apache.org/maven2' }
 }
 
-configurations.all {
-  resolutionStrategy {
-    // force certain versions of dependencies (including transitive)
-    //  *append new forced modules:
-    force group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jackson_version
-    force group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
-    force group: 'joda-time', name: 'joda-time', version: joda_time_version
-
-  }
-}
-
 dependencies {
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-graphite', version: dropwizard_metrics_version
@@ -87,9 +92,10 @@ dependencies {
     }
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-json-org', version: jackson_version
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hppc', version: jackson_version
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version: jackson_version
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jackson_version
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate4', version: jackson_version
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jackson_version
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
     compile (group: 'com.ryantenney.metrics', name: 'metrics-spring', version: metrics_spring_version) {
         exclude(module: 'metrics-core')
         exclude(module: 'metrics-healthchecks')
@@ -101,8 +107,10 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: commons_io_version
     compile group: 'javax.inject', name: 'javax.inject', version: javax_inject_version
     compile group: 'javax.transaction', name: 'javax.transaction-api'
-    compile group: 'joda-time', name: 'joda-time', version: joda_time_version
     compile group: 'org.apache.geronimo.javamail', name: 'geronimo-javamail_1.4_mail', version: geronimo_javamail_1_4_mail_version
+    compile group: 'org.hibernate', name: 'hibernate-core', version: hibernate_entitymanager_version
+
+    compile group: 'org.hibernate', name: 'hibernate-envers'
     compile group: 'org.hibernate', name: 'hibernate-validator'
     compile group: 'org.springframework.boot', name: 'spring-boot-actuator'
     compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
@@ -140,7 +148,7 @@ dependencies {
 	testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version
     testCompile group: 'junit', name: 'junit'
     testCompile group: 'org.mockito', name: 'mockito-core'
-    testCompile group: 'cz.jirutka.spring', name: 'embedmongo-spring', version: embedmongo_spring_version
+    testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
     testCompile group: 'org.hamcrest', name: 'hamcrest-library'
 
     testCompile group: 'com.h2database', name: 'h2'
