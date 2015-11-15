@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,11 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     @Override
     public List<Copy> findCopies(String id) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("book.$id").is(new ObjectId(id)));
-        return Optional.ofNullable(mongoTemplate.find(query, Copy.class)).orElse(null);
+        try {
+            query.addCriteria(Criteria.where("book.$id").is(new ObjectId(id)));
+            return Optional.ofNullable(mongoTemplate.find(query, Copy.class)).orElse(null);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 }
