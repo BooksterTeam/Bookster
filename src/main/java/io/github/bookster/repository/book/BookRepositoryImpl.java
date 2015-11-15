@@ -26,11 +26,7 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     @Override
     public List<Copy> findCopies(String id) {
         Query query = new Query();
-        try {
-            query.addCriteria(Criteria.where("book.$id").is(new ObjectId(id)));
-            return Optional.ofNullable(mongoTemplate.find(query, Copy.class)).orElse(null);
-        } catch (Exception e) {
-            return new ArrayList<>();
-        }
+        query.addCriteria(Criteria.where("book").is(id));
+        return Optional.ofNullable(mongoTemplate.find(query, Copy.class)).orElse(null);
     }
 }

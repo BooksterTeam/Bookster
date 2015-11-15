@@ -1,7 +1,6 @@
 package io.github.bookster.repository.author;
 
 import io.github.bookster.domain.Book;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 /**
  * Created on 05/11/15
@@ -25,7 +26,7 @@ public class AuthorRepositoryImpl implements AuthorRepositoryCustom {
     @Override
     public List<Book> findBooks(String id) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("authors.$id").is(new ObjectId(id)));
+        query.addCriteria(where("authors").in(id));
         return Optional.ofNullable(mongoTemplate.find(query, Book.class)).orElse(null);
     }
 }

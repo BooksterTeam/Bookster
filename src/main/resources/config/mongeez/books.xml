@@ -6,7 +6,7 @@
                 "_id" : "123",
                 "isbn" : "1337",
                 "title":"Master Software Engineering",
-                "author": "A famous author",
+                "authors": [{"_id": "400", "forename":"John", "surname":"Doe"}],
                 "verified":"false",
                 "published": "12/12/2015",
                 "subtitle":"From novel to ninja in software engineering",

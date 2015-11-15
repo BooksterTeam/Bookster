@@ -67,7 +67,7 @@ public class BookResource {
         }
         if (bookModel.getAuthor() != null) {
             Author author = authorRepository.findOne(bookModel.getAuthor());
-            book.getAuthors().add(author);
+            book.getAuthors().add(author.getId());
         }
         Book result = bookRepository.save(book);
         return ResponseEntity.created(new URI("/api/books/" + result.getId()))
@@ -91,7 +91,7 @@ public class BookResource {
         Book book = new Book(bookModel.getId(), bookModel.getIsbn(), bookModel.getTitle(), bookModel.getVerified(), bookModel.getPublished(), bookModel.getSubtitle());
         if (bookModel.getAuthor() != null) {
             Author author = authorRepository.findOne(bookModel.getAuthor());
-            book.getAuthors().add(author);
+            book.getAuthors().add(author.getId());
         }
         Book result = bookRepository.save(book);
         return ResponseEntity.ok()

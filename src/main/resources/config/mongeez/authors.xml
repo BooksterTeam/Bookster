@@ -1,0 +1,12 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-2" author="jhipster">
+        <script>
+            db.author.insert(
+            {
+                "_id" : "400",
+                "forename": "John",
+                "surname": "Doe"
+            });
+        </script>
+    </changeSet>
+</mongoChangeLog>

@@ -56,7 +56,7 @@ public class CopyResource {
         //todo https://github.com/BooksterTeam/Bookster/issues/8
         if(copyModel.getBook() != null){
             Book book = bookRepository.findOne(copyModel.getBook());
-            copy.setBook(book);
+            copy.setBook(book.getId());
         }
 
         Copy result = copyRepository.save(copy);
@@ -82,7 +82,7 @@ public class CopyResource {
         //todo https://github.com/BooksterTeam/Bookster/issues/8
         if(copyModel.getBook() != null){
             Book book = bookRepository.findOne(copyModel.getBook());
-            copy.setBook(book);
+            copy.setBook(book.getId());
         }
 
         Copy result = copyRepository.save(copy);

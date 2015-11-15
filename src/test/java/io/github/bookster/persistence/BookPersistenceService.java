@@ -47,12 +47,14 @@ public class BookPersistenceService {
         bookId = book.getId();
 
         Copy copy = new Copy(true, true);
-        copy.setBook(book);
+        copy.setBook(bookId);
         copyRepository.save(copy);
+        String copyId = copy.getId();
     }
 
     @Test
     public void lookUpCopiesOfBook() throws Exception {
+        Assert.assertThat(copyRepository.findAll().size(), Matchers.is(1));
         Assert.assertThat(bookRepository.findCopies(bookId).size(), Matchers.is(1));
 
     }

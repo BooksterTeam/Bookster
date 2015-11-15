@@ -38,8 +38,7 @@ public class Book implements Serializable {
     @DBRef
     private Set<Tag> tags = new HashSet<>();
 
-    @DBRef
-    private Set<Author> authors = new HashSet<>();
+    private Set<String> authors = new HashSet<>();
 
     public Book() {
     }
@@ -109,11 +108,11 @@ public class Book implements Serializable {
         this.tags = tags;
     }
 
-    public Set<Author> getAuthors() {
+    public Set<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
+    public void setAuthors(Set<String> authors) {
         this.authors = authors;
     }
 

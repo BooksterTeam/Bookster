@@ -24,8 +24,7 @@ public class Copy implements Serializable {
     @Field("available")
     private Boolean available;
 
-    @DBRef
-    private Book book;
+    private String book;
 
     public Copy() {
     }
@@ -65,11 +64,11 @@ public class Copy implements Serializable {
         this.available = available;
     }
 
-    public Book getBook() {
+    public String getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(String book) {
         this.book = book;
     }
 
