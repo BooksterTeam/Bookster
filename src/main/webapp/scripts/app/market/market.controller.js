@@ -1,8 +1,8 @@
 angular.module('booksterApp')
-    .controller('MarketController', function ($scope, Book, ParseLinks) {
+    .controller('MarketController', function ($scope, Market, ParseLinks) {
         $scope.books = [];
         $scope.loadAll = function() {
-            Book.query({page: $scope.page, size: 20}, function(result, headers) {
+            Market.query({page: $scope.page, size: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.books = result;
             });

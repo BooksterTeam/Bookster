@@ -60,7 +60,10 @@
                         <td>{{book.published | date:'mediumDate'}}</td>
                     <td>{{book.subtitle}}</td>
                     <td><div ng-repeat="b in book.tags">{{b.name}}</div></td>
-                    <td>{{book.authors}}</td>
+                    <td><div ng-repeat="a in book.authors">
+                        <a ui-sref="author.detail({id:a})">{{a}}</a>
+                    </div>
+                    </td>
                     <td>
                         <button type="submit"
                                 ui-sref="book.detail({id:book.id})"
