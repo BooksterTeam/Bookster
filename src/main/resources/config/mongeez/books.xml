@@ -1,0 +1,17 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-2" author="jhipster">
+        <script>
+            db.book.insert(
+            {
+                "_id" : "123",
+                "isbn" : "1337",
+                "title":"Master Software Engineering",
+                "author": "A famous author",
+                "verified":"false",
+                "published": "12/12/2015",
+                "subtitle":"From novel to ninja in software engineering",
+                "tag":"software"
+            });
+        </script>
+    </changeSet>
+</mongoChangeLog>

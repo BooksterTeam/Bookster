@@ -1,3 +1,18 @@
 body{
     font-family: "Roboto Condensed", sans-serif !important;
 }
+
+
+.bookimage {
+    min-width:200px;
+    min-height:150px;
+    max-width: 220px;
+    max-height:150px;
+}
+
+.bookthumbnail {
+    min-width: 280px;
+    min-height: 320px;
+    max-width:280px;
+    max-height:320px;
+}

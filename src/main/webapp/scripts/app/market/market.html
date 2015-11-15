@@ -4,9 +4,19 @@
     <div class="row">
 
         <div class="col-xs-6 col-md-3" ng-repeat="book in books">
-            <div class="thumbnail">
-                {{book}}
-                asdf
+            <div class="thumbnail bookthumbnail">
+            <img ng-src="../../../media/images/defaultbook.png"/>
+                <div class="caption">
+                    {{book}}
+                </div>
+                <!--<img ng-show = {{entry.image}} class="bookimage" ng-src="{{entry.image}}" />-->
+                <!--<img ng-show = {{!entry.image}} class="bookimage" ng-src="{{entry.author.picture}}" />-->
+                <!--<div class="caption">-->
+                    <!--<h4><a ng-href="{{entry.link}}">{{entry.headline |limitTo: 30}} ...</a></h4>-->
+                    <!--<h5><a ng-href="http://www.freecodecamp.com/{{entry.author.username}}">by {{entry.author.username}} </a> - Upvotes: {{entry.upVotes.length}}</h5>-->
+                    <!--<p>{{entry.metaDescription |limitTo: 70}} ...</p>-->
+                    <!--<p>Posted on: {{entry.timePosted | date:"MM/dd/yyyy"}}</p>-->
+                <!--</div>-->
             </div>
         </div>
 
