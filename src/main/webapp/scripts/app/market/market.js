@@ -5,7 +5,7 @@ angular.module('booksterApp')
         $stateProvider
             .state('market', {
                 parent: 'site',
-                url: '/',
+                url: '/market',
                 data: {
                     authorities: []
                 },

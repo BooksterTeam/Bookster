@@ -4,10 +4,8 @@ body{
 
 
 .bookimage {
-    min-width:200px;
-    min-height:150px;
-    max-width: 220px;
-    max-height:150px;
+    max-width: 250px;
+    max-height:200px;
 }
 
 .bookthumbnail {

@@ -5,9 +5,26 @@
 
         <div class="col-xs-6 col-md-3" ng-repeat="book in books">
             <div class="thumbnail bookthumbnail">
-            <img ng-src="../../../media/images/defaultbook.png"/>
+            <img class="bookimage" ng-src="../../../media/images/defaultbook.png"/>
                 <div class="caption">
-                    {{book}}
+                    <h4 ng-mouseover="book.title">{{book.title | limitTo:30}}</h4>
+                    <button type="submit"
+                            ui-sref="book.detail({id:book.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                    </button>
+                    <!--
+                    <button type="submit"
+                            ui-sref="book.edit({id:book.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(book.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                    -->
                 </div>
                 <!--<img ng-show = {{entry.image}} class="bookimage" ng-src="{{entry.image}}" />-->
                 <!--<img ng-show = {{!entry.image}} class="bookimage" ng-src="{{entry.author.picture}}" />-->
