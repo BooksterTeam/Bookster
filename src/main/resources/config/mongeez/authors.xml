@@ -3,7 +3,7 @@
         <script>
             db.author.insert(
             {
-                "_id" : "400",
+                "_id" : "4000",
                 "forename": "John",
                 "surname": "Doe"
             });
