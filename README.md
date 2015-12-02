@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/BooksterTeam/Bookster.svg)](https://travis-ci.org/BooksterTeam/Bookster)
 # Developing Bookster
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
