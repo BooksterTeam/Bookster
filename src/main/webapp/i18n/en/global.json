@@ -8,6 +8,7 @@
                 "main": "Entities",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
+            "market":"Market",
             "account": {
                 "main": "Account",
                 "settings": "Settings",

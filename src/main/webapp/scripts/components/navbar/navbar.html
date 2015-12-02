@@ -17,7 +17,15 @@
                         <span class="hidden-sm" translate="global.menu.home">Home</span>
                     </a>
                 </li>
-                <li ui-sref-active="active" ng-switch-when="true" class="dropdown pointer">
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="market"data-toggle="collapse" data-target=".navbar-collapse.in">
+                        <span class="glyphicon glyphicon-book"></span>
+                        <span class="hiddem-sm" translate="global.menu.market">Market</span>
+                    </a>
+                </li>
+
+                <li ng-class="{active: $state.includes('admin')}" ui-sref-active="active" has-authority="ROLE_ADMIN"  ng-switch-when="true" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
                             <span class="glyphicon glyphicon-th-list"></span>
@@ -29,6 +37,16 @@
                     </a>
                     <ul class="dropdown-menu">
                         <!-- JHipster will add entities to the menu here -->
+                        <li ui-sref-active="active" ><a ui-sref="tag" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                            &#xA0;<span translate="global.menu.entities.tag">tag</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="book" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                            &#xA0;<span translate="global.menu.entities.book">book</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="author" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                            &#xA0;<span translate="global.menu.entities.author">author</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="copy" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                            &#xA0;<span translate="global.menu.entities.copy">copy</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="lending" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                            &#xA0;<span translate="global.menu.entities.lending">lending</span></a></li>
                     </ul>
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
