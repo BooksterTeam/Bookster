@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "Bookster",
+    "packageName": "io.github.bookster",
+    "packageFolder": "io/github/bookster",
+    "authenticationType": "xauth",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": "no",
+    "useSass": false,
+    "buildTool": "gradle",
+    "frontendBuilder": "grunt",
+    "enableTranslation": true,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "45e7f9716fd3621e72b94974727eced7a65d452e",
+    "testFrameworks": [
+      "cucumber"
+    ]
+  }
+}
