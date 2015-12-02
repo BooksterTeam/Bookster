@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar build/libs/bookster-0.0.1-SNAPSHOT.war --spring.profiles.active=prod --server.port=$PORT --spring.data.mongodb.host=$DBHOST --spring.data.mongodb.username=$DBUSER --spring.data.mongodb.password=$DBPWD --spring.data.mongodb.database=$DBNAME
