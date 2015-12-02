@@ -10,6 +10,9 @@
                     <span class="glyphicon glyphicon-flash"></span> <span
                         translate="booksterApp.copy.home.createLabel">Create a new Copy</span>
                 </button>
+                <div ng-repeat="copy in copys track by copy.id">
+                    {{copy}}
+                </div>
             </div>
         </div>
     </div>

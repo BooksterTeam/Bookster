@@ -24,6 +24,9 @@ public class Copy implements Serializable {
     @Field("available")
     private Boolean available;
 
+
+    private String user;
+
     private String book;
 
     public Copy() {
@@ -70,6 +73,14 @@ public class Copy implements Serializable {
 
     public void setBook(String book) {
         this.book = book;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     @Override
