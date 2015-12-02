@@ -11,15 +11,21 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
             <ul class="nav navbar-nav navbar-right">
-                <li ui-sref-active="active">
+                <li ui-sref-active="active" ng-switch-when="false">
                     <a ui-sref="home" data-toggle="collapse" data-target=".navbar-collapse.in">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="hidden-sm" translate="global.menu.home">Home</span>
                     </a>
                 </li>
+                <li ng-class="{active: $state.includes('account')}" ui-sref-active="active" ng-switch-when="true">
+                    <a ui-sref="bookshelf" data-toggle="collapse" data-target=".navbar-collapse.in">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="hidden-sm" translate="global.menu.bookshelf">Bookshelf</span>
+                    </a>
                 </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="market"data-toggle="collapse" data-target=".navbar-collapse.in">
+                </li>
+                <li ng-class="{active: $state.includes('account')}" ui-sref-active="active" ng-switch-when="true">
+                    <a ui-sref="market "data-toggle="collapse" data-target=".navbar-collapse.in">
                         <span class="glyphicon glyphicon-book"></span>
                         <span class="hiddem-sm" translate="global.menu.market">Market</span>
                     </a>

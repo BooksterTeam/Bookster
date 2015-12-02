@@ -3,6 +3,7 @@ package io.github.bookster.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import io.github.bookster.domain.Book;
 import io.github.bookster.domain.Copy;
+import io.github.bookster.domain.User;
 import io.github.bookster.repository.book.BookRepository;
 import io.github.bookster.repository.CopyRepository;
 import io.github.bookster.web.model.CopyModel;
@@ -16,11 +17,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,8 +50,11 @@ public class CopyResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Copy> createCopy(@RequestBody CopyModel copyModel) throws URISyntaxException {
+    public ResponseEntity<Copy> createCopy(@RequestBody CopyModel copyModel, Principal principal) throws URISyntaxException {
         log.debug("REST request to save Copy : {}", copyModel);
+        UserDetails activeUser =(UserDetails) ((Authentication) principal).getPrincipal();
+        log.debug("REST request user to save Copy: {}", activeUser);
+        log.info(activeUser.getUsername());
         if (copyModel.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new copy cannot already have an ID").body(null);
         }
@@ -72,10 +79,10 @@ public class CopyResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Copy> updateCopy(@RequestBody CopyModel copyModel) throws URISyntaxException {
+    public ResponseEntity<Copy> updateCopy(@RequestBody CopyModel copyModel, Principal principal) throws URISyntaxException {
         log.debug("REST request to update Copy : {}", copyModel);
         if (copyModel.getId() == null) {
-            return createCopy(copyModel);
+            return createCopy(copyModel, principal);
         }
 
         Copy copy = new Copy(copyModel.getId(), copyModel.getAvailable(), copyModel.getVerified());
