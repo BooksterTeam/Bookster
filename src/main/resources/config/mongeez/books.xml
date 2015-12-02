@@ -1,0 +1,39 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-2" author="jhipster">
+        <script>
+            db.book.insert(
+            {
+                "_id" : "1001",
+                "isbn" : "1401",
+                "title":"Master Software Engineering",
+                "authors": [ "4000"],
+                "verified":"false",
+                "published": "12/12/2015",
+                "subtitle":"From novel to ninja in software engineering",
+                "tag":"software"
+            });
+            db.book.insert(
+            {
+                "_id" : "1002",
+                "isbn" : "1402",
+                "title":"Master Software Engineering II",
+                "authors": [ "4000"],
+                "verified":"false",
+                "published": "12/12/2015",
+                "subtitle":"From novel to ninja in software engineering",
+                "tag":"software"
+            });
+            db.book.insert(
+            {
+                "_id" : "1003",
+                "isbn" : "1403",
+                "title":"Master Software Engineering III",
+                "authors": [ "4000"],
+                "verified":"false",
+                "published": "12/12/2015",
+                "subtitle":"From novel to ninja in software engineering",
+                "tag":"software"
+            });
+        </script>
+    </changeSet>
+</mongoChangeLog>
