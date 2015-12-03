@@ -6,20 +6,17 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.github.bookster.config.BaseDriverIntegration;
-import org.junit.Assert;
+import org.hamcrest.Matchers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.hamcrest.core.IsNot.not;
-import static org.openqa.selenium.By.className;
+import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
 
 public class LoginSteps {
 
-    WebDriver browser;
+    private WebDriver browser;
 
     @Before
     public void setUp() throws Exception {
@@ -33,8 +30,8 @@ public class LoginSteps {
         browser.findElement(id("password")).sendKeys(password);
     }
 
-    @When("^the login button is clicked$")
-    public void theLoginButtonIsClicked() throws Exception {
+    @When("^the sign in button is clicked$")
+    public void theSignInButtonIsClicked() throws Exception {
         WebElement loginForm = browser.findElement(id("login-button"));
         loginForm.submit();
     }
@@ -42,13 +39,12 @@ public class LoginSteps {
     @Then("^the dashboard is shown$")
     public void the_dashboard_is_shown() throws Throwable {
 
-
     }
 
-    @Then("^the error message is \"([^\"]*)\"")
-    public void theErrorMessageIsShown(String message) throws Exception {
-        WebElement alertBox = browser.findElement(className("alert alert-danger "));
-        Assert.assertThat(alertBox, not(null));
+    @Then("^the sign in page is shown$")
+    public void the_sign_in_page_is_shown() throws Throwable {
+        browser.findElement(cssSelector(".alert.alert-danger"));
+        assertThat(browser.getCurrentUrl(), Matchers.is("http://localhost:8080/#/login"));
     }
 
     @After

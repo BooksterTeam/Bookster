@@ -1,14 +1,13 @@
-Feature: Login
+Feature: Sign in
   as a guest user
-  I want to login as user
+  I want to Sign in as user
 
-  Scenario: Successfull Login
+  Scenario: Successfull Sign in
     Given the username is "user" and the password is "user"
-    When the login button is clicked
+    When the sign in button is clicked
     Then the dashboard is shown
 
-  Scenario: Login failed
+  Scenario: Sign in failed
     Given the username is "user" and the password is "incorrect"
-    When the login button is clicked
-    Then the login page is shown
-    And the error message is "Login fehlgeschlagen!"
+    When the sign in button is clicked
+    Then the sign in page is shown
