@@ -155,7 +155,7 @@ dependencies {
     testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
     testCompile group: 'org.hamcrest', name: 'hamcrest-library'
     
-    
+    testCompile "org.seleniumhq.selenium:selenium-java:2.48.2"
     testCompile group: 'com.h2database', name: 'h2'
     testCompile group: 'cz.jirutka.spring', name: 'embedmongo-spring', version: embedmongo_spring_version
     optional group: 'org.springframework.boot', name:'spring-boot-configuration-processor', version: spring_boot_version

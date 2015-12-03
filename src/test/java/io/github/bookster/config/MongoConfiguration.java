@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 
 @Configuration
 public class MongoConfiguration {
-
+/*
     @Bean
     public Mongo mongo() throws IOException {
         System.setProperty("DB.TRACE","true");
@@ -21,7 +21,7 @@ public class MongoConfiguration {
                 .port(allocateRandomPort())
                 .build();
     }
-
+*/
     public static int allocateRandomPort() {
         try {
             ServerSocket server = new ServerSocket(0);
