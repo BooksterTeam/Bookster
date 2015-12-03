@@ -42,10 +42,12 @@ test {
     println 'Starting the Unit and Integration test'
     include '**/*UnitTest*'
     include '**/*IntTest*'
+    exclude 'io/github/bookster/cucumber/**'
 }
 
 task cucumberTest(type: Test) {
-    include '**/CucumberTest*'
+    //include '**/CucumberTest*'
+    exclude 'io/github/bookster/cucumber/**'
 }
 
 test.finalizedBy(cucumberTest)
