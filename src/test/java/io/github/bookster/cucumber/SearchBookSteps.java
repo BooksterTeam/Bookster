@@ -34,11 +34,6 @@ public class SearchBookSteps extends BaseDriverIntegration {
     }
 
 
-    @After
-    public void tearDown() throws Exception {
-        browser.quit();
-    }
-
     @Given("^user search for 'gesch'$")
     public void userSearchForGesch() throws Throwable {
         Thread.sleep(1000);
@@ -51,5 +46,10 @@ public class SearchBookSteps extends BaseDriverIntegration {
     public void aBookIsFoundWhichHasTheIdDetails(int bookid) throws Throwable {
         WebElement element = browser.findElement(id("details" + bookid));
         assertTrue(element.isDisplayed());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        browser.quit();
     }
 }

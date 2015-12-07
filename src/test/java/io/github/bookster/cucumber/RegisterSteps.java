@@ -18,6 +18,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Random;
 
+import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.By.id;
 
 @RunWith(Cucumber.class)
@@ -49,9 +50,10 @@ public class RegisterSteps extends BaseIntegration {
 
     @Then("^the register page is shown and the cssSelector is \"([^\"]*)\" and the message is \"([^\"]*)\"$")
     public void theRegisterPageIsShownAndTheCssSelectorIsAndTheMessageIs(String cssSelector, String message) throws Throwable {
+        Thread.sleep(1000);
         WebElement element = browser.findElement(id(cssSelector));
         String text = element.getText();
-        Assert.assertThat(text.contains(message), Matchers.is(true));
+        assertThat(text.contains(message), Matchers.is(true));
     }
 
     @After
@@ -66,8 +68,9 @@ public class RegisterSteps extends BaseIntegration {
 
     @Then("^the register page is shown$")
     public void theRegisterPageIsShown() throws Throwable {
+        Thread.sleep(1000);
         WebElement registerForm = browser.findElement(id("register-button"));
         String disabled = registerForm.getAttribute("aria-disabled");
-        Assert.assertThat(disabled, Matchers.is("true"));
+        assertThat(disabled, Matchers.is("true"));
     }
 }
