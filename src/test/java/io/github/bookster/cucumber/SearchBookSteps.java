@@ -1,14 +1,15 @@
 package io.github.bookster.cucumber;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.bookster.config.BaseDriverIntegration;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.By.id;
 
@@ -51,5 +52,18 @@ public class SearchBookSteps extends BaseDriverIntegration {
     @After
     public void tearDown() throws Exception {
         browser.quit();
+    }
+
+    @Given("^user search for 'jqwerajksndfnjk'$")
+    public void userSearchForJqwerajksndfnjk() throws Throwable {
+        Thread.sleep(1000);
+        browser.findElement(id("book-query")).sendKeys("jqwerajksndfnjk");
+        Thread.sleep(1000);
+    }
+
+
+    @Then("^no book is found$")
+    public void noBookIsFound() throws Throwable {
+        WebElement element = browser.findElement(id("book-market"));
     }
 }
