@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = "pretty", features = "src/test/features/searchforbook.feature")
+@CucumberOptions(plugin = "pretty", features = "src/test/features/copy.feature")
 public class CucumberTest {
 
 }

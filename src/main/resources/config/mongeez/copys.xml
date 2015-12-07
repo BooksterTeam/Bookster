@@ -1,0 +1,26 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-2" author="jhipster">
+        <script>
+            db.copy.insert(
+            {
+            "_id" : "4001",
+            "book" : "1001"
+            });
+            db.copy.insert(
+            {
+            "_id" : "4002",
+            "book" : "1001"
+            });
+            db.copy.insert(
+            {
+            "_id" : "4003",
+            "book" : "1001"
+            });
+            db.copy.insert(
+            {
+            "_id" : "4004",
+            "book" : "1002"
+            });
+        </script>
+    </changeSet>
+</mongoChangeLog>

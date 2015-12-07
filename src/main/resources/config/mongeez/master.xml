@@ -3,4 +3,5 @@
     <file path="users.xml"/>
     <file path="authors.xml"/>
     <file path="books.xml"/>
+    <file path="copys.xml"/>
 </changeFiles>
