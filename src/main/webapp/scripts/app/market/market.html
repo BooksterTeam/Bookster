@@ -1,7 +1,7 @@
 <div>
     <h1 class="text-center" translate="market.title">Bookster - Market</h1>
     Search: <input ng-model="query">
-    <div class="row">
+    <div class="row" id="book-market">
 
         <div class="col-xs-6 col-md-3" ng-repeat="book in books | filter:query">
             <div class="thumbnail bookthumbnail">

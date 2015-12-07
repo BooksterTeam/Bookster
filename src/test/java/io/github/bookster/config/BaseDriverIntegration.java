@@ -1,12 +1,16 @@
 package io.github.bookster.config;
 
 import org.apache.commons.lang.SystemUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
+
+import static org.openqa.selenium.By.id;
 
 /**
  * Created on 03/12/15
@@ -36,5 +40,12 @@ public class BaseDriverIntegration {
         ChromeDriver driver = new ChromeDriver(capabilities);
         driver.manage().window().maximize();
         return driver;
+    }
+
+    public void authenticate(WebDriver browser){
+        browser.findElement(id("username")).sendKeys("admin");
+        browser.findElement(id("password")).sendKeys("admin");
+        WebElement loginForm = browser.findElement(id("login-button"));
+        loginForm.submit();
     }
 }
