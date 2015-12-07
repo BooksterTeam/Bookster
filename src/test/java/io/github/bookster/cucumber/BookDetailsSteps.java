@@ -1,6 +1,5 @@
 package io.github.bookster.cucumber;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;

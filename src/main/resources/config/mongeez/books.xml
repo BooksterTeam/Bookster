@@ -16,7 +16,7 @@
             {
                 "_id" : "1002",
                 "isbn" : "1402",
-                "title":"Master Software Engineering II",
+                "title":"Learn to programm with Java",
                 "authors": [ "4000"],
                 "verified":"false",
                 "published": "12/12/2015",
@@ -27,13 +27,58 @@
             {
                 "_id" : "1003",
                 "isbn" : "1403",
-                "title":"Master Software Engineering III",
+                "title":"Geschäftprozesse - Eine Einführung",
                 "authors": [ "4000"],
                 "verified":"false",
                 "published": "12/12/2015",
                 "subtitle":"From novel to ninja in software engineering",
                 "tag":"software"
             });
+            db.book.insert(
+            {
+                "_id" : "1004",
+                "isbn" : "1404",
+                "title":"Das Weihnachtshäkelbuch: Geschenke & Deko für Advent und Weihnachten",
+                "authors": [ "4000"],
+                "verified":"false",
+                "published": "12/12/2015",
+                "subtitle":"From novel to ninja in software engineering",
+                "tag":"software"
+            });
+            db.book.insert(
+            {
+                "_id" : "1005",
+                "isbn" : "1405",
+                "title":"Software Engineering I",
+                "authors": [ "4000"],
+                "verified":"false",
+                "published": "12/12/2015",
+                "subtitle":"From novel to ninja in software engineering",
+                "tag":"software"
+            });
+            db.book.insert(
+            {
+            "_id" : "1006",
+            "isbn" : "1406",
+            "title":"Database - SQL",
+            "authors": [ "4000"],
+            "verified":"false",
+            "published": "12/12/2015",
+            "subtitle":"From novel to ninja in software engineering",
+            "tag":"software"
+            });
+            db.book.insert(
+            {
+            "_id" : "1007",
+            "isbn" : "1407",
+            "title":"Formale Sprachen",
+            "authors": [ "4000"],
+            "verified":"false",
+            "published": "12/12/2015",
+            "subtitle":"From novel to ninja in software engineering",
+            "tag":"software"
+            });
+
         </script>
     </changeSet>
 </mongoChangeLog>
