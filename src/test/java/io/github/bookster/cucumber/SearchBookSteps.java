@@ -5,8 +5,11 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.bookster.config.BaseDriverIntegration;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.By.id;
 
 /**
@@ -46,6 +49,7 @@ public class SearchBookSteps extends BaseDriverIntegration {
 
     @Then("^a book is found which has the id 'details(\\d+)'$")
     public void aBookIsFoundWhichHasTheIdDetails(int bookid) throws Throwable {
-        browser.findElement(id("details" + bookid));
+        WebElement element = browser.findElement(id("details" + bookid));
+        assertTrue(element.isDisplayed());
     }
 }
