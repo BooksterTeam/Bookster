@@ -14,7 +14,9 @@ import java.io.File;
  */
 public class BaseDriverIntegration {
 
-    public static ChromeDriver chromeDriver() {
+    public final String url = "http://localhost:3000/#/";
+
+    public ChromeDriver chromeDriver() {
         File file = null;
         if (SystemUtils.IS_OS_MAC) {
             file = new File("src/test/resources/driver/mac/chromedriver");

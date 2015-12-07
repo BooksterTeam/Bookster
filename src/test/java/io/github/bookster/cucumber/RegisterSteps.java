@@ -27,7 +27,7 @@ public class RegisterSteps extends BaseIntegration {
 
     @Before
     public void setUp() throws Exception {
-        browser = BaseDriverIntegration.chromeDriver();
+        browser = new BaseDriverIntegration().chromeDriver();
         browser.get("http://localhost:8080/#/register");
     }
 

@@ -14,13 +14,13 @@ import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
 
-public class LoginSteps {
+public class LoginSteps extends BaseDriverIntegration{
 
     private WebDriver browser;
 
     @Before
     public void setUp() throws Exception {
-        browser = BaseDriverIntegration.chromeDriver();
+        browser = chromeDriver();
         browser.get("http://localhost:8080/#/login");
     }
 
