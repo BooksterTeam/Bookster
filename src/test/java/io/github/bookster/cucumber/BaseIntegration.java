@@ -2,6 +2,7 @@ package io.github.bookster.cucumber;
 
 import io.github.bookster.Application;
 import io.github.bookster.config.MongoConfiguration;
+import io.github.bookster.repository.UserRepository;
 import io.github.bookster.repository.book.BookRepository;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -26,4 +27,7 @@ public class BaseIntegration {
 
     @Inject
     protected BookRepository bookRepository;
+
+    @Inject
+    protected UserRepository userRepository;
 }

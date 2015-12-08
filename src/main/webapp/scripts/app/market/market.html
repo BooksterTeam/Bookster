@@ -1,16 +1,17 @@
 <div>
     <h1 class="text-center" translate="market.title">Bookster - Market</h1>
+    Search: <input id="book-query" ng-model="query">
+    <div class="row" id="book-market">
 
-    <div class="row">
-
-        <div class="col-xs-6 col-md-3" ng-repeat="book in books">
+        <div class="col-xs-6 col-md-3" ng-repeat="book in books | filter:query">
             <div class="thumbnail bookthumbnail">
             <img class="bookimage" ng-src="../../../media/images/defaultbook.png"/>
                 <div class="caption">
-                    <h4 ng-mouseover="book.title">{{book.title | limitTo:30}}</h4>
+                    <h4 ng-mouseover="book.title">{{book.title | limitTo:25}}</h4>
                     <button type="submit"
                             ui-sref="book.detail({id:book.id})"
-                            class="btn btn-info btn-sm">
+                            class="btn btn-info btn-sm"
+                    id="details{{book.id}}">
                         <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
                     </button>
                     <!--

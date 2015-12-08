@@ -3,8 +3,8 @@
         <div class="col-md-8 col-md-offset-2">
             <h1 translate="register.title">Registration</h1>
 
-            <div class="alert alert-success" ng-show="success" translate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
+            <div id="success-alert" class="alert alert-success" ng-show="success" translate="register.messages.success">
+                <strong>>Registration saved!</strong> Please check your email for confirmation.
             </div>
 
             <div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
@@ -15,7 +15,7 @@
                 <strong>Login name already registered!</strong> Please choose another one.
             </div>
 
-            <div class="alert alert-danger" ng-show="errorEmailExists" translate="register.messages.error.emailexists">
+            <div id="email-alert" class="alert alert-danger" ng-show="errorEmailExists" translate="register.messages.error.emailexists">
                 <strong>E-mail is already in use!</strong> Please choose another one.
             </div>
 
@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button" id="register-button">Register</button>
             </form>
             <p></p>
             <div class="alert alert-warning" translate="global.messages.info.authenticated">
