@@ -28,6 +28,8 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * REST controller for managing Copy.
  */
@@ -56,6 +58,10 @@ public class CopyResource {
             return ResponseEntity.badRequest().header("Failure", "A new copy cannot already have an ID").body(null);
         }
 
+        if (copyModel.getBook() == null) {
+            return ResponseEntity.badRequest().header("Failure", "A copy cannot exist without a book").body(null);
+        }
+
         Copy copy = new Copy(copyModel.getAvailable(), copyModel.getVerified());
         //todo https://github.com/BooksterTeam/Bookster/issues/8
         if(copyModel.getBook() != null){
@@ -82,7 +88,7 @@ public class CopyResource {
             return createCopy(copyModel);
         }
 
-        Copy copy = new Copy(copyModel.getId(), copyModel.getAvailable(), copyModel.getVerified());
+        Copy copy = new Copy(copyModel.getId(), copyModel.getAvailable(), copyModel.getVerified(), copyModel.getBook());
         //todo https://github.com/BooksterTeam/Bookster/issues/8
         if(copyModel.getBook() != null){
             Book book = bookRepository.findOne(copyModel.getBook());
@@ -119,9 +125,9 @@ public class CopyResource {
     @Timed
     public ResponseEntity<Copy> getCopy(@PathVariable String id) {
         log.debug("REST request to get Copy : {}", id);
-        return Optional.ofNullable(copyRepository.findOne(id))
+        return ofNullable(copyRepository.findOne(id))
             .map(copy -> new ResponseEntity<>(
-                copy,
+                new Copy(copy.getId(), ofNullable(copy.getAvailable()).orElse(false), ofNullable(copy.getVerified()).orElse(false), copy.getBook()),
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

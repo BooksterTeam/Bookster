@@ -94,7 +94,7 @@ public class BookshelfResource {
             return addCopy(copyModel, principal);
         }
 
-        Copy copy = new Copy(copyModel.getId(), copyModel.getAvailable(), copyModel.getVerified());
+        Copy copy = new Copy(copyModel.getId(), copyModel.getAvailable(), copyModel.getVerified(), copyModel.getBook());
         //todo https://github.com/BooksterTeam/Bookster/issues/8
         if(copyModel.getBook() != null){
             Book book = bookRepository.findOne(copyModel.getBook());

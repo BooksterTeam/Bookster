@@ -23,7 +23,8 @@
             "tag": "Tag",
             "tags": "Tags",
             "authors": "Authors",
-            "author": "Author"
+            "author": "Author",
+            "copies": "Copies"
         }
     }
 }

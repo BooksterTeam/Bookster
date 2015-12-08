@@ -15,7 +15,7 @@
                     <span translate="booksterApp.copy.verified">Verified</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{copy.verified}}</span>
+                    <span class="form-control-static">{{copy.verified ||false}}</span>
                 </td>
             </tr>
             <tr>
@@ -23,7 +23,7 @@
                     <span translate="booksterApp.copy.available">Available</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{copy.available}}</span>
+                    <span class="form-control-static">{{copy.available ||false}}</span>
                 </td>
             </tr>
             <tr>
@@ -31,7 +31,7 @@
                     <span translate="booksterApp.copy.book">Book</span>
                 </td>
                 <td>
-                    <span class="form-control-static"><a ui-sref="book.detail({id:copy.book.id})">{{copy.book.title}}</a></span>
+                    <span class="form-control-static"><a ui-sref="book.detail({id:copy.book})">{{copy.book}}</a></span>
                 </td>
             </tr>
             </tbody>

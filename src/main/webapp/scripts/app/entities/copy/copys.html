@@ -50,8 +50,8 @@
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
                 <tr ng-repeat="copy in copys track by copy.id">
                     <td><a ui-sref="copy.detail({id:copy.id})">{{copy.id}}</a></td>
-                    <td>{{copy.verified}}</td>
-                    <td>{{copy.available}}</td>
+                    <td>{{copy.verified || false}}</td>
+                    <td>{{copy.available || false}}</td>
                     <td>{{copy.book}}</td>
                     <td>
                         <button type="submit"

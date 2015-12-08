@@ -37,10 +37,11 @@ public class Copy implements Serializable {
         this.verified = verified;
     }
 
-    public Copy(String id, Boolean available, Boolean verified) {
+    public Copy(String id, Boolean available, Boolean verified, String book) {
         this.id = id;
         this.available = available;
         this.verified = verified;
+        this.book = book;
     }
 
     public String getId() {
@@ -110,6 +111,6 @@ public class Copy implements Serializable {
             "id=" + id +
             ", verified='" + verified + "'" +
             ", available='" + available + "'" +
-            '}';
+            ", book='" + book +'}';
     }
 }

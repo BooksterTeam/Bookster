@@ -46,6 +46,7 @@ angular.module('booksterApp')
 
         $scope.clear = function () {
             $scope.copy = {
+                book:null,
                 verified: null,
                 available: null,
                 id: null
