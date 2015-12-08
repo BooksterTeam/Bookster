@@ -1,11 +1,9 @@
 package io.github.bookster.cucumber;
 
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.bookster.config.BaseDriverIntegration;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -23,14 +21,9 @@ public class BooksSteps extends BaseDriverIntegration {
 
     private WebDriver browser;
 
-    @Before
-    public void setUp() throws Exception {
-        browser = chromeDriver();
-        browser.get(url + "login");
-    }
-
     @Given("^user authenticated and clicked on the market$")
     public void userAuthenticatedAndClickedOnTheMarket() throws Throwable {
+        browser = webDriver();
         authenticate(browser);
         Thread.sleep(1000);
         browser.get("http://localhost:3000/#/market");
@@ -50,7 +43,7 @@ public class BooksSteps extends BaseDriverIntegration {
     }
 
     @After
-    public void tearDown() throws Exception {
-        browser.quit();
+    public void tearDown(){
+        closeBrowser();
     }
 }

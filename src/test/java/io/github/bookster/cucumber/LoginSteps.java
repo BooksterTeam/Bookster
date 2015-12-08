@@ -10,6 +10,7 @@ import org.hamcrest.Matchers;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
@@ -18,16 +19,12 @@ public class LoginSteps extends BaseDriverIntegration{
 
     private WebDriver browser;
 
-    @Before
-    public void setUp() throws Exception {
-        browser = chromeDriver();
-        browser.get("http://localhost:8080/#/login");
-    }
-
     @Given("^the username is \"([^\"]*)\" and the password is \"([^\"]*)\"$")
     public void theUsernameIsAndThePasswordIs(String username, String password) throws Exception {
+        browser = webDriver("login");
         browser.findElement(id("username")).sendKeys(username);
         browser.findElement(id("password")).sendKeys(password);
+        Thread.sleep(500);
     }
 
     @When("^the sign in button is clicked$")
@@ -43,12 +40,13 @@ public class LoginSteps extends BaseDriverIntegration{
 
     @Then("^the sign in page is shown$")
     public void the_sign_in_page_is_shown() throws Throwable {
+        Thread.sleep(500);
         browser.findElement(cssSelector(".alert.alert-danger"));
-        assertThat(browser.getCurrentUrl(), Matchers.is("http://localhost:8080/#/login"));
+        assertThat(browser.getCurrentUrl(), is(server+ "login"));
     }
 
     @After
     public void tearDown() throws Exception {
-        browser.quit();
+        closeBrowser();
     }
 }

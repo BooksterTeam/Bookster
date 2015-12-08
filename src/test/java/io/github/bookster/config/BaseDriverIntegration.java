@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 
@@ -18,9 +16,22 @@ import static org.openqa.selenium.By.id;
  */
 public class BaseDriverIntegration {
 
-    public final String url = "http://localhost:3000/#/";
+    protected final String server = "http://localhost:3000/#/";
 
-    public ChromeDriver chromeDriver() {
+    private WebDriver browser;
+
+    protected WebDriver webDriver() throws InterruptedException {
+        return webDriver("");
+    }
+
+    protected WebDriver webDriver(String url) throws InterruptedException {
+        browser = chromeDriver();
+        browser.get(server + url);
+        Thread.sleep(200);
+        return browser;
+    }
+
+    private ChromeDriver chromeDriver() {
         File file = null;
         if (SystemUtils.IS_OS_MAC) {
             file = new File("src/test/resources/driver/mac/chromedriver");
@@ -42,10 +53,18 @@ public class BaseDriverIntegration {
         return driver;
     }
 
-    public void authenticate(WebDriver browser){
+    protected void authenticate(WebDriver browser) throws InterruptedException {
+        browser.get(server + "login");
+        Thread.sleep(500);
         browser.findElement(id("username")).sendKeys("admin");
         browser.findElement(id("password")).sendKeys("admin");
         WebElement loginForm = browser.findElement(id("login-button"));
         loginForm.submit();
+    }
+
+    protected void closeBrowser() {
+        if (browser != null) {
+            browser.quit();
+        }
     }
 }

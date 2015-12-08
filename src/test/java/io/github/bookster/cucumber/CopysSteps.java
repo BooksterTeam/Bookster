@@ -1,7 +1,6 @@
 package io.github.bookster.cucumber;
 
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.bookster.config.BaseDriverIntegration;
@@ -16,14 +15,9 @@ public class CopysSteps extends BaseDriverIntegration {
 
     private WebDriver browser;
 
-    @Before
-    public void setUp() throws Exception {
-        browser = chromeDriver();
-        browser.get(url + "login");
-    }
-
     @Given("^user authenticated and navigated to the copys$")
     public void userAuthenticatedAndNavigatedToTheCopys() throws Throwable {
+        browser = webDriver();
         authenticate(browser);
         Thread.sleep(1000);
         browser.get("http://localhost:3000/#/copys");
@@ -48,6 +42,6 @@ public class CopysSteps extends BaseDriverIntegration {
 
     @After
     public void tearDown() throws Exception {
-        browser.quit();
+        closeBrowser();
     }
 }

@@ -1,6 +1,5 @@
 package io.github.bookster.cucumber;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -21,14 +20,9 @@ public class SearchBookSteps extends BaseDriverIntegration {
 
     private WebDriver browser;
 
-    @Before
-    public void setUp() throws Exception {
-        browser = chromeDriver();
-        browser.get(url + "login");
-    }
-
     @Given("^user is authenticated and navigated to the market$")
     public void userIsAuthenticatedAndNavigatedToTheMarket() throws Throwable {
+        browser = webDriver();
         authenticate(browser);
         Thread.sleep(1000);
         browser.get("http://localhost:3000/#/market");
@@ -51,7 +45,7 @@ public class SearchBookSteps extends BaseDriverIntegration {
 
     @After
     public void tearDown() throws Exception {
-        browser.quit();
+        closeBrowser();
     }
 
     @Given("^user search for 'jqwerajksndfnjk'$")

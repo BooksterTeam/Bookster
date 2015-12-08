@@ -1,15 +1,12 @@
 package io.github.bookster.cucumber;
 
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.github.bookster.config.BaseDriverIntegration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.valueOf;
 import static org.hamcrest.Matchers.is;
@@ -24,27 +21,18 @@ public class BookDetailsSteps extends BaseDriverIntegration {
 
     private WebDriver browser;
 
-    @Before
-    public void setUp() throws Exception {
-        browser = chromeDriver();
-        browser.get(url + "login");
-    }
-
     @Given("^user authenticated and navigated to the market$")
     public void userIsAdminAndNavigatedToTheMarket() throws Throwable {
-        browser.findElement(id("username")).sendKeys("admin");
-        browser.findElement(id("password")).sendKeys("admin");
-        WebElement loginForm = browser.findElement(id("login-button"));
-        loginForm.submit();
-        browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        browser = webDriver();
+        authenticate(browser);
     }
 
     @When("^user lookup a book with id '(\\d+)'$")
     public void userLookupABookWithId(int bookid
     ) throws Throwable {
-        browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        Thread.sleep(5000);
-        browser.get("http://localhost:3000/#/market");
+        Thread.sleep(500);
+        browser.get(server + "market");
+        Thread.sleep(500);
         WebElement detailsButton = browser.findElement(id("details" + bookid));
         detailsButton.click();
 
@@ -52,6 +40,7 @@ public class BookDetailsSteps extends BaseDriverIntegration {
 
     @Then("^the title of the book is 'Master Software Engineering'$")
     public void theTitleOfTheBookIsMasterSoftwareEngineering() throws Throwable {
+        Thread.sleep(500);
         WebElement title = browser.findElement(id("book-title"));
         assertThat(title.getText(), is("Master Software Engineering"));
     }
@@ -64,6 +53,6 @@ public class BookDetailsSteps extends BaseDriverIntegration {
 
     @After
     public void tearDown() throws Exception {
-        browser.quit();
+        closeBrowser();
     }
 }
