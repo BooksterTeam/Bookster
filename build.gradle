@@ -45,13 +45,6 @@ test {
     exclude 'io/github/bookster/cucumber/**'
 }
 
-task cucumberTest(type: Test) {
-    //include '**/CucumberTest*'
-    exclude 'io/github/bookster/cucumber/**'
-}
-
-test.finalizedBy(cucumberTest)
-
 apply from: 'yeoman.gradle'
 apply from: 'sonar.gradle'
 
