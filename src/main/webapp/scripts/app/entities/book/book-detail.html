@@ -76,7 +76,7 @@
                 <td>
 
                     <span class="form-control-static"><div ng-repeat="copi in book.copies">{{b}}
-                        <a ui-sref="copy.detail({id:copi.id})">{{copi.available}}</a>
+                        <a ui-sref="copy.detail({id:copi.id})">{{copi.id}} - Status - {{copi.available}}</a>
                         <br/>
                     </div> </span>
 
