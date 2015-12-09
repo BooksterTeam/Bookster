@@ -7,6 +7,8 @@ import io.github.bookster.config.BaseDriverIntegration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static org.openqa.selenium.By.id;
+
 /**
  * Created on 03/12/15
  * author: nixoxo
@@ -32,12 +34,14 @@ public class CopysSteps extends BaseDriverIntegration {
     @Given("^add a copy for the book with the id '(\\d+)'$")
     public void addACopyForTheBookWithTheId(int bookid) throws Throwable {
         Thread.sleep(1000);
-        browser.findElement(By.id("field_book")).sendKeys("" + bookid);
+        browser.findElement(id("field_book")).sendKeys("" + bookid);
+        Thread.sleep(1000);
     }
 
     @Then("^a copy has been added$")
     public void aCopyHasBeenAdded() throws Throwable {
-
+        browser.findElement(id("copy-save")).click();
+        Thread.sleep(1000);
     }
 
     @After
