@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import static java.lang.Integer.valueOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.By.id;
 
 /**
@@ -21,16 +22,17 @@ public class BookDetailsSteps extends BaseDriverIntegration {
 
     private WebDriver browser;
 
+
     @Given("^user authenticated and navigated to the market$")
     public void userIsAdminAndNavigatedToTheMarket() throws Throwable {
         browser = webDriver();
         authenticate(browser);
+        Thread.sleep(500);
     }
 
     @When("^user lookup a book with id '(\\d+)'$")
     public void userLookupABookWithId(int bookid
     ) throws Throwable {
-        Thread.sleep(500);
         browser.get(server + "market");
         Thread.sleep(500);
         WebElement detailsButton = browser.findElement(id("details" + bookid));
@@ -49,6 +51,18 @@ public class BookDetailsSteps extends BaseDriverIntegration {
     public void theIsbnOfTheBookIs(int isbn) throws Throwable {
         WebElement title = browser.findElement(id("book-isbn"));
         assertThat(valueOf(title.getText()), is(isbn));
+    }
+
+    @When("^user lookup a book manually$")
+    public void userLookupABookManually() throws Throwable {
+        browser.get(server + "book/1001717234");
+        Thread.sleep(500);
+    }
+
+    @Then("^the book is not found$")
+    public void theBookIsNotFound() throws Throwable {
+        WebElement bookNotFound = browser.findElement(id("book-not-found"));
+        assertTrue(bookNotFound.getText().contains("not exist"));
     }
 
     @After

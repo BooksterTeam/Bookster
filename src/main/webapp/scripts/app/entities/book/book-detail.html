@@ -1,7 +1,11 @@
 
 <div>
+    <div id="book-not-found" class="alert alert-danger" ng-show="book.id == null">
+        Book does not exist.
+    </div>
+    <div id="book-found" ng-show="book.id != null">
     <h2><span translate="booksterApp.book.detail.title">Book</span> {{book.id}}</h2>
-    <div class="table-responsive">
+    <div class="table-responsive" ng-show="book.id != null">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -85,6 +89,7 @@
 
             </tbody>
         </table>
+    </div>
     </div>
 
     <button type="submit"
