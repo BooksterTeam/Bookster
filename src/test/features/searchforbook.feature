@@ -1,4 +1,4 @@
-Feature: This should describe the feature of displaying books
+Feature: This should describe the feature of searching books
 
   Scenario: Retrieve searched book
     Given user is authenticated and navigated to the market
